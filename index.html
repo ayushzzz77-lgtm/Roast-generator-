@@ -1,1 +1,348 @@
-# Roast-generator-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoastMe 🔥</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --border-radius: 12px;
+            --font-family: 'Poppins', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        /* Dark Theme (Default) */
+        body {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #ff4500;
+            --text-color: #e0e0e0;
+            --secondary-text-color: #a0a0a0;
+            --border-color: #333333;
+        }
+
+        /* Light Theme */
+        body.light-mode {
+            --bg-color: #f0f2f5;
+            --surface-color: #ffffff;
+            --primary-color: #ff4500;
+            --text-color: #1c1e21;
+            --secondary-text-color: #606770;
+            --border-color: #dddfe2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* All sections styling */
+        .header, .roast-section, .result-section, .top-roasts {
+            background-color: var(--surface-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* For language menu positioning */
+        }
+        .logo { font-size: 1.5em; font-weight: 700; }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .header-actions button {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.2s;
+        }
+        .header-actions button:hover { background-color: var(--border-color); }
+        #lang-switcher-btn { font-size: 0.9em; padding: 8px 10px;}
+
+        /* Language Menu */
+        .lang-menu {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+        .lang-menu button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 10px 20px;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
+        }
+        .lang-menu button:hover { background-color: var(--border-color); }
+        .hidden { display: none; }
+
+        /* Main Section */
+        .roast-section { text-align: center; }
+        .roast-section h2 { font-size: 2em; margin-bottom: 10px; }
+        .roast-section .subtitle { color: var(--secondary-text-color); margin-bottom: 30px; }
+        #name-input {
+            width: 100%; padding: 15px; border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color); color: var(--text-color);
+            font-size: 1em; margin-bottom: 20px;
+        }
+        #name-input::placeholder { color: var(--secondary-text-color); }
+        .generate-btn {
+            background-color: var(--primary-color); color: white;
+            border: none; padding: 15px 30px; border-radius: 8px;
+            font-size: 1.1em; font-weight: 600; cursor: pointer;
+            width: 100%; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4); }
+
+        /* Result Section */
+        .result-section { text-align: center; }
+        .result-section h3 { margin-bottom: 15px; color: var(--secondary-text-color); }
+        #roast-output { font-size: 1.5em; min-height: 50px; font-style: italic; margin-bottom: 20px; }
+        .result-actions { display: flex; gap: 15px; justify-content: center; }
+        .result-actions button {
+            background-color: var(--border-color); color: var(--text-color); border: none;
+            padding: 10px 20px; border-radius: 8px; font-size: 0.9em;
+            cursor: pointer; flex-grow: 1; max-width: 200px;
+            transition: background-color 0.2s;
+        }
+        .result-actions button:hover { background-color: #444; }
+
+        /* Top Roasts */
+        .top-roasts h3 { text-align: center; margin-bottom: 20px; }
+        .top-roasts ul { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .top-roasts li { background-color: var(--bg-color); padding: 15px; border-radius: 8px; border-left: 3px solid var(--primary-color); }
+
+        /* Footer */
+        .footer { text-align: center; padding: 20px; }
+        .footer-links a { color: var(--secondary-text-color); text-decoration: none; margin: 0 10px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--primary-color); }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .roast-section h2 { font-size: 1.5em; }
+            #roast-output { font-size: 1.2em; }
+            .result-actions { flex-direction: column; }
+            .result-actions button { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="header">
+            <div class="logo">RoastMe 🔥</div>
+            <div class="header-actions">
+                <button id="lang-switcher-btn">🌐 EN ▼</button>
+                <button id="theme-toggle-btn">🌙</button>
+            </div>
+            <div id="lang-menu" class="lang-menu hidden">
+                <button data-lang="en">English</button>
+                <button data-lang="hi">हिन्दी</button>
+            </div>
+        </header>
+
+        <main class="roast-section">
+            <h2 id="hero-title">🤪 Get Roasted Instantly! 🤪</h2>
+            <p class="subtitle" id="hero-subtitle">Type your name and hit the roast button!</p>
+            <input type="text" id="name-input" placeholder="Enter Your Name">
+            <button class="generate-btn" id="generate-btn">🔥 Generate Roast 🔥</button>
+        </main>
+
+        <section class="result-section" style="display: none;">
+            <h3 id="result-title">Result:</h3>
+            <div id="roast-output"></div>
+            <div class="result-actions">
+                <button id="roast-again-btn">🔄 Roast Again</button>
+                <button id="share-btn">📤 Share with Friends</button>
+            </div>
+        </section>
+
+        <section class="top-roasts">
+            <h3 id="top-roasts-title">🔥 Top Roasts Today</h3>
+            <ul>
+                <li id="top-roast-1">😂 You run slower than Windows XP</li>
+                <li id="top-roast-2">😈 Your brain has more ads than YouTube</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#" id="footer-about">About</a> |
+                <a href="#" id="footer-privacy">Privacy</a> |
+                <a href="#" id="footer-contact">Contact</a>
+            </div>
+        </footer>
+
+    </div>
+
+<script>
+    // --- DOM ELEMENTS ---
+    const nameInput = document.getElementById('name-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const roastOutput = document.getElementById('roast-output');
+    const resultSection = document.querySelector('.result-section');
+    const roastAgainBtn = document.getElementById('roast-again-btn');
+    const shareBtn = document.getElementById('share-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const langSwitcherBtn = document.getElementById('lang-switcher-btn');
+    const langMenu = document.getElementById('lang-menu');
+
+    // --- STATE VARIABLES ---
+    let currentLanguage = 'en';
+
+    // --- DATA ---
+    const roasts = {
+        "en": [ "even WiFi avoids you 😂", "you run slower than a Windows XP startup 🐢", "your brain has more ads than YouTube 🧠", "I'm not saying you're lazy, but you make sloths look hyperactive.", "you're the reason the gene pool needs a lifeguard.", "if you were a spice, you'd be flour." ],
+        "hi": [ "WiFi bhi tujhe avoid karta hai 😂", "tu Windows XP ke startup se bhi slow chalta hai 🐢", "tere dimaag mein YouTube se zyada ads hain 🧠", "main yeh nahi keh raha ki tu aalsi hai, par tujhe dekhkar sloth bhi hyperactive lagte hain.", "teri vajah se gene pool ko lifeguard ki zaroorat hai.", "agar tu masala hota, toh maida hota." ]
+    };
+    
+    const uiText = {
+        "en": {
+            "hero-title": "🤪 Get Roasted Instantly! 🤪",
+            "hero-subtitle": "Type your name and hit the roast button!",
+            "name-input-placeholder": "Enter Your Name",
+            "generate-btn": "🔥 Generate Roast 🔥",
+            "result-title": "Result:",
+            "roast-again-btn": "🔄 Roast Again",
+            "share-btn": "📤 Share with Friends",
+            "top-roasts-title": "🔥 Top Roasts Today",
+            "footer-about": "About", "footer-privacy": "Privacy", "footer-contact": "Contact",
+            "empty-name-alert": "Please enter a name first, you ghost! 👻"
+        },
+        "hi": {
+            "hero-title": "🤪 तुरंत रोस्ट हो जाओ! 🤪",
+            "hero-subtitle": "अपना नाम टाइप करें और रोस्ट बटन दबाएं!",
+            "name-input-placeholder": "अपना नाम दर्ज करें",
+            "generate-btn": "🔥 रोस्ट जेनरेट करें 🔥",
+            "result-title": "परिणाम:",
+            "roast-again-btn": "🔄 फिर से रोस्ट करें",
+            "share-btn": "📤 दोस्तों के साथ शेयर करें",
+            "top-roasts-title": "🔥 आज के टॉप रोस्ट्स",
+            "footer-about": "हमारे बारे में", "footer-privacy": "गोपनीयता", "footer-contact": "संपर्क करें",
+            "empty-name-alert": "भाई, पहले नाम तो डाल! 👻"
+        }
+    };
+
+    // --- FUNCTIONS ---
+    function updateUIText(lang) {
+        document.getElementById('hero-title').textContent = uiText[lang]['hero-title'];
+        document.getElementById('hero-subtitle').textContent = uiText[lang]['hero-subtitle'];
+        document.getElementById('name-input').placeholder = uiText[lang]['name-input-placeholder'];
+        document.getElementById('generate-btn').textContent = uiText[lang]['generate-btn'];
+        document.getElementById('result-title').textContent = uiText[lang]['result-title'];
+        document.getElementById('roast-again-btn').textContent = uiText[lang]['roast-again-btn'];
+        document.getElementById('share-btn').textContent = uiText[lang]['share-btn'];
+        document.getElementById('top-roasts-title').textContent = uiText[lang]['top-roasts-title'];
+        document.getElementById('footer-about').textContent = uiText[lang]['footer-about'];
+        document.getElementById('footer-privacy').textContent = uiText[lang]['footer-privacy'];
+        document.getElementById('footer-contact').textContent = uiText[lang]['footer-contact'];
+    }
+
+    function generateRoast() {
+        const name = nameInput.value.trim(); 
+        if (name === "") {
+            roastOutput.textContent = uiText[currentLanguage]['empty-name-alert'];
+            resultSection.style.display = 'block';
+            return;
+        }
+        const roastList = roasts[currentLanguage];
+        const randomIndex = Math.floor(Math.random() * roastList.length);
+        const randomRoast = roastList[randomIndex];
+        const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+        roastOutput.textContent = `${capitalizedName}, ${randomRoast}`;
+        resultSection.style.display = 'block';
+    }
+
+    async function shareRoast() {
+        const roastText = roastOutput.textContent;
+        const shareData = { title: 'I got Roasted! 🔥', text: `"${roastText}"\n\nRoast your friends too! 😂👇`, url: window.location.href };
+        if (navigator.share) {
+            try { await navigator.share(shareData); } catch (err) { console.log('Error sharing:', err); }
+        } else { alert("Sharing is not supported on this browser. Try on a mobile phone!"); }
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        // Save theme preference
+        if (document.body.classList.contains('light-mode')) {
+            themeToggleBtn.textContent = '☀️';
+            localStorage.setItem('theme', 'light');
+        } else {
+            themeToggleBtn.textContent = '🌙';
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+    generateBtn.addEventListener('click', generateRoast);
+    roastAgainBtn.addEventListener('click', generateRoast);
+    shareBtn.addEventListener('click', shareRoast);
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
+    langSwitcherBtn.addEventListener('click', () => {
+        langMenu.classList.toggle('hidden');
+    });
+
+    langMenu.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+            const lang = event.target.dataset.lang;
+            currentLanguage = lang;
+            langSwitcherBtn.textContent = `🌐 ${lang.toUpperCase()} ▼`;
+            updateUIText(lang);
+            langMenu.classList.add('hidden');
+        }
+    });
+
+    // --- ON PAGE LOAD ---
+    // Check for saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggleBtn.textContent = '☀️';
+    }
+</script>
+
+</body>
+</html>
