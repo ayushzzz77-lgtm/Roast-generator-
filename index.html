@@ -3,32 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoastMe 🔥 - Get Roasted in 13 Languages</title>
-    <meta name="description" content="Get hilariously roasted in 13 different languages! Fun, friendly roasts for entertainment purposes only.">
-    <meta name="keywords" content="roast, roast generator, funny insults, humor, jokes, multilingual">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://roastme.example.com/">
-    <meta property="og:title" content="RoastMe 🔥 - Get Roasted in 13 Languages">
-    <meta property="og:description" content="Get hilariously roasted in 13 different languages! Fun, friendly roasts for entertainment purposes only.">
-    <meta property="og:image" content="https://roastme.example.com/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://roastme.example.com/">
-    <meta property:twitter:title" content="RoastMe 🔥 - Get Roasted in 13 Languages">
-    <meta property="twitter:description" content="Get hilariously roasted in 13 different languages! Fun, friendly roasts for entertainment purposes only.">
-    <meta property="twitter:image" content="https://roastme.example.com/twitter-image.jpg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>RoastMe 🔥 - Multilingual Roast Generator</title>
     <style>
         :root {
             --border-radius: 12px;
-            --font-family: 'Poppins', sans-serif;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --transition-speed: 0.3s;
         }
 
@@ -37,6 +16,7 @@
             --bg-color: #121212;
             --surface-color: #1e1e1e;
             --primary-color: #ff4500;
+            --secondary-color: #ff7b4d;
             --text-color: #e0e0e0;
             --secondary-text-color: #a0a0a0;
             --border-color: #333333;
@@ -47,6 +27,7 @@
             --bg-color: #f0f2f5;
             --surface-color: #ffffff;
             --primary-color: #ff4500;
+            --secondary-color: #ff7b4d;
             --text-color: #1c1e21;
             --secondary-text-color: #606770;
             --border-color: #dddfe2;
@@ -67,6 +48,7 @@
             padding: 20px;
             transition: background-color var(--transition-speed), color var(--transition-speed);
             min-height: 100vh;
+            line-height: 1.6;
         }
 
         .container {
@@ -84,6 +66,7 @@
             border-radius: var(--border-radius);
             border: 1px solid var(--border-color);
             transition: background-color var(--transition-speed), border-color var(--transition-speed);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         /* Header */
@@ -91,9 +74,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* For language menu positioning */
+            position: relative;
         }
-        .logo { font-size: 1.5em; font-weight: 700; }
+        .logo { 
+            font-size: 1.8em; 
+            font-weight: 700; 
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .header-actions { display: flex; align-items: center; gap: 15px; }
         .header-actions button {
             background: none;
@@ -103,9 +96,12 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
-        .header-actions button:hover { background-color: var(--border-color); }
+        .header-actions button:hover { 
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+        }
         #lang-switcher-btn { font-size: 0.9em; padding: 8px 10px;}
 
         /* Language Menu */
@@ -131,6 +127,9 @@
             text-align: left;
             cursor: pointer;
             width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .lang-menu button:hover { background-color: var(--border-color); }
         .hidden { display: none; }
@@ -140,23 +139,46 @@
         .roast-section h2 { font-size: 2em; margin-bottom: 10px; }
         .roast-section .subtitle { color: var(--secondary-text-color); margin-bottom: 30px; }
         #name-input {
-            width: 100%; padding: 15px; border-radius: 8px;
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            background-color: var(--bg-color); color: var(--text-color);
-            font-size: 1em; margin-bottom: 20px;
+            background-color: var(--bg-color); 
+            color: var(--text-color);
+            font-size: 1em; 
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        #name-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
         #name-input::placeholder { color: var(--secondary-text-color); }
         .generate-btn {
-            background-color: var(--primary-color); color: white;
-            border: none; padding: 15px 30px; border-radius: 8px;
-            font-size: 1.1em; font-weight: 600; cursor: pointer;
-            width: 100%; transition: transform 0.2s, box-shadow 0.2s;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); 
+            color: white;
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 8px;
+            font-size: 1.1em; 
+            font-weight: 600; 
+            cursor: pointer;
+            width: 100%; 
+            transition: all 0.3s;
             position: relative;
+            overflow: hidden;
         }
-        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4); }
+        .generate-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+        }
+        .generate-btn:active {
+            transform: translateY(0);
+        }
         .generate-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
+            transform: none;
         }
 
         /* Loading animation */
@@ -179,11 +201,15 @@
         .result-section { text-align: center; }
         .result-section h3 { margin-bottom: 15px; color: var(--secondary-text-color); }
         #roast-output { 
-            font-size: 1.5em; 
-            min-height: 50px; 
+            font-size: 1.4em; 
+            min-height: 80px; 
             font-style: italic; 
             margin-bottom: 20px;
             transition: opacity 0.3s;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
         }
         .result-actions { 
             display: flex; 
@@ -192,13 +218,25 @@
             flex-wrap: wrap;
         }
         .result-actions button {
-            background-color: var(--border-color); color: var(--text-color); border: none;
-            padding: 10px 20px; border-radius: 8px; font-size: 0.9em;
-            cursor: pointer; flex-grow: 1; 
-            transition: background-color 0.2s;
+            background-color: var(--border-color); 
+            color: var(--text-color); 
+            border: none;
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            font-size: 0.9em;
+            cursor: pointer; 
+            flex-grow: 1; 
+            transition: all 0.2s;
             min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .result-actions button:hover { background-color: #444; }
+        .result-actions button:hover { 
+            background-color: #444; 
+            transform: translateY(-2px);
+        }
 
         /* Toast notification */
         .toast {
@@ -214,6 +252,9 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .toast.show {
             opacity: 1;
@@ -226,17 +267,33 @@
             background-color: var(--bg-color); 
             padding: 15px; 
             border-radius: 8px; 
-            border-left: 3px solid var(--primary-color);
-            transition: transform 0.2s;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.2s;
             cursor: pointer;
         }
         .top-roasts li:hover {
             transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         /* Footer */
-        .footer { text-align: center; padding: 20px; }
-        .footer-links a { color: var(--secondary-text-color); text-decoration: none; margin: 0 10px; transition: color 0.2s; }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            color: var(--secondary-text-color);
+            font-size: 0.9em;
+        }
+        .footer-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .footer-links a { 
+            color: var(--secondary-text-color); 
+            text-decoration: none; 
+            transition: color 0.2s; 
+        }
         .footer-links a:hover { color: var(--primary-color); }
 
         @media (max-width: 600px) {
@@ -248,6 +305,16 @@
             .lang-menu {
                 right: 20px;
                 max-height: 250px;
+                width: 200px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -257,675 +324,661 @@
     <div class="container">
         
         <header class="header">
-            <div class="logo">RoastMe 🔥</div>
+            <div class="logo">🔥 RoastMe</div>
             <div class="header-actions">
-                <button id="lang-switcher-btn">🌐 EN ▼</button>
+                <button id="lang-switcher-btn">🌐 EN</button>
                 <button id="theme-toggle-btn">🌙</button>
             </div>
             <div id="lang-menu" class="lang-menu hidden">
-                <button data-lang="en">English</button>
-                <button data-lang="hi">हिन्दी (Hindi)</button>
-                <button data-lang="es">Español (Spanish)</button>
-                <button data-lang="pt">Português (Portuguese)</button>
-                <button data-lang="ru">Русский (Russian)</button>
-                <button data-lang="fr">Français (French)</button>
-                <button data-lang="de">Deutsch (German)</button>
-                <button data-lang="ar">العربية (Arabic)</button>
-                <button data-lang="bn">বাংলা (Bengali)</button>
-                <button data-lang="ta">தமிழ் (Tamil)</button>
-                <button data-lang="te">తెలుగు (Telugu)</button>
-                <button data-lang="mr">मराठी (Marathi)</button>
-                <button data-lang="pa">ਪੰਜਾਬੀ (Punjabi)</button>
+                <button data-lang="en">🌐 English</button>
+                <button data-lang="hi">🇮🇳 हिन्दी (Hindi)</button>
+                <button data-lang="es">🇪🇸 Español (Spanish)</button>
+                <button data-lang="pt">🇵🇹 Português (Portuguese)</button>
+                <button data-lang="ru">🇷🇺 Русский (Russian)</button>
+                <button data-lang="fr">🇫🇷 Français (French)</button>
+                <button data-lang="de">🇩🇪 Deutsch (German)</button>
+                <button data-lang="ar">🇸🇦 العربية (Arabic)</button>
+                <button data-lang="bn">🇧🇩 বাংলা (Bengali)</button>
+                <button data-lang="ta">🇮🇳 தமிழ் (Tamil)</button>
+                <button data-lang="te">🇮🇳 తెలుగు (Telugu)</button>
+                <button data-lang="mr">🇮🇳 मराठी (Marathi)</button>
+                <button data-lang="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</button>
             </div>
         </header>
 
         <main class="roast-section">
             <h2 id="hero-title">🤪 Get Roasted Instantly! 🤪</h2>
             <p class="subtitle" id="hero-subtitle">Type your name and hit the roast button!</p>
-            <input type="text" id="name-input" placeholder="Enter Your Name">
-            <button class="generate-btn" id="generate-btn">🔥 Generate Roast 🔥</button>
+            <input type="text" id="name-input" placeholder="Enter Your Name" autocomplete="off">
+            <button class="generate-btn" id="generate-btn">🔥 Generate Roast</button>
         </main>
 
         <section class="result-section" style="display: none;">
-            <h3 id="result-title">Result:</h3>
+            <h3 id="result-title">Your Roast:</h3>
             <div id="roast-output"></div>
             <div class="result-actions">
                 <button id="roast-again-btn">🔄 Roast Again</button>
                 <button id="copy-btn">📋 Copy Text</button>
-                <button id="share-btn">📤 Share with Friends</button>
+                <button id="share-btn">📤 Share</button>
             </div>
         </section>
 
         <section class="top-roasts">
-            <h3 id="top-roasts-title">🔥 Top Roasts Today</h3>
+            <h3 id="top-roasts-title">🔥 Popular Roasts</h3>
             <ul>
-                <li id="top-roast-1">😂 You run slower than Windows XP</li>
-                <li id="top-roast-2">😈 Your brain has more ads than YouTube</li>
+                <li>😂 You run slower than Windows XP</li>
+                <li>😈 Your brain has more ads than YouTube</li>
+                <li>🤦‍♂️ Your coding skills make Internet Explorer look fast</li>
             </ul>
         </section>
 
         <footer class="footer">
+            <p>RoastMe 🔥 - All in good fun! No offense intended.</p>
             <div class="footer-links">
-                <a href="#" id="footer-about">About</a> |
-                <a href="#" id="footer-privacy">Privacy</a> |
+                <a href="#" id="footer-about">About</a>
+                <a href="#" id="footer-privacy">Privacy</a>
                 <a href="#" id="footer-contact">Contact</a>
             </div>
         </footer>
 
     </div>
 
-    <div id="toast" class="toast">Text copied to clipboard!</div>
+    <div id="toast" class="toast">
+        <span>✅ Text copied to clipboard!</span>
+    </div>
 
-<script>
-    // --- DOM ELEMENTS ---
-    const nameInput = document.getElementById('name-input');
-    const generateBtn = document.getElementById('generate-btn');
-    const roastOutput = document.getElementById('roast-output');
-    const resultSection = document.querySelector('.result-section');
-    const roastAgainBtn = document.getElementById('roast-again-btn');
-    const shareBtn = document.getElementById('share-btn');
-    const copyBtn = document.getElementById('copy-btn');
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    const langSwitcherBtn = document.getElementById('lang-switcher-btn');
-    const langMenu = document.getElementById('lang-menu');
-    const toast = document.getElementById('toast');
+    <script>
+        // --- DOM ELEMENTS ---
+        const nameInput = document.getElementById('name-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const roastOutput = document.getElementById('roast-output');
+        const resultSection = document.querySelector('.result-section');
+        const roastAgainBtn = document.getElementById('roast-again-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const langSwitcherBtn = document.getElementById('lang-switcher-btn');
+        const langMenu = document.getElementById('lang-menu');
+        const toast = document.getElementById('toast');
 
-    // --- STATE VARIABLES ---
-    let currentLanguage = 'en';
-    let usedRoasts = []; // Track used roasts to avoid repetition
+        // --- STATE VARIABLES ---
+        let currentLanguage = 'en';
+        let usedRoasts = []; // Track used roasts to avoid repetition
 
-    // --- DATA ---
-    // Note: For brevity, I'm including a few sample roasts per language
-    // In a real implementation, you would include all 100 roasts per language
-    const roasts = {
-        "en": [ 
-            "Your face is the reason Dettol only kills 99.9% of germs. It saw you and let the last one go out of pity.",
-            "Water purifiers use fewer filters than you do on your photos.",
-            "When God was handing out faces, were you at the back of the line? No, you were in the wrong line altogether.",
-            "When I saw your selfie, my phone's antivirus warned me: 'Threat detected! Delete immediately!'",
-            "You're so ugly, even ghosts start chanting prayers when they see you.",
-            "When you were born, the doctor didn't congratulate your parents on the baby. He congratulated them on surviving the ordeal.",
-            "With a face like that, you have so much confidence. Your mirror has definitely learned how to lie.",
-            "You're so short, even ants look down on you.",
-            "You're so short, you can sweep under the bed without even bending over.",
-            "When you were born, the doctor tossed you in the air… and lost you.",
-            "There's so much empty space in your head, I could build a house there and still have a backyard.",
-            "Your ideas are so brilliant that nobody wants to be the one to use them.",
-            "If overthinking were an Olympic sport, you'd be a gold medalist.",
-            "You're so smart, you could invent your own answers in an exam and still get them wrong.",
-            "God gave you a brain but forgot to include the user manual.",
-            "Your brain's network is permanently out of the coverage area.",
-            "You're like a tube light that flickers on late... and sometimes, not at all.",
-            "There's only one difference between you and Einstein. He was a genius, and you... are you.",
-            "If your brain was for sale, it would be listed as 'Used... barely.'",
-            "Listening to you makes me think even Wikipedia has given up on updating facts."
-            // Add 80 more English roasts here
-        ],
-        "hi": [ 
-            "तुम्हारी शकल इतनी ख़राब है कि तुम्हें देखकर Dettol भी 99.9% कीटाणुओं को अकेला छोड़ देता है।",
-            "इतना फ़िल्टर तो पानी साफ़ करने में नहीं लगता, जितना तुम अपनी फ़ोटो पर लगाते हो।",
-            "भगवान ने जब शकल बांटी थी, तो तुम लाइन में सबसे पीछे थे क्या? नहीं, तुम तो लाइन ही कहीं और लगाए हुए थे।",
-            "तुम्हारी सेल्फ़ी देखकर मेरे फ़ोन का एंटी-वायरस भी बोलता है, 'ख़तरा! तुरंत डिलीट करें!'",
-            "तुम इतने बदसूरत हो कि भूत भी तुम्हें देखकर हनुमान चालीसा पढ़ने लगता है।",
-            "जब तुम पैदा हुए थे, डॉक्टर ने तुम्हें नहीं, तुम्हारे माँ-बाप को कोंग्रेचुलेट किया था कि 'बच गए!'",
-            "तुम्हारे चेहरे पर इतना कॉन्फिडेंस है, लगता है आईना (mirror) झूठ बोलना सीख गया है।",
-            "तुम इतने छोटे हो कि तुम्हें चींटी भी 'अंकल' बोलती होगी।",
-            "तुम्हारी हाइट इतनी कम है कि तुम खड़े-खड़े बेड के नीचे झाड़ू लगा सकते हो।",
-            "तुम जब पैदा हुए थे, तो डॉक्टर ने तुम्हें हवा में उछाला, और तुम नीचे ही नहीं आए। तुम अब तक उड़ रहे हो।"
-            // Add 90 more Hindi roasts here
-        ],
-        "es": [ 
-            "Tu cara es tan fea que hasta el desinfectante perdonaría al 0.1% de los gérmenes solo para no tener que mirarte.",
-            "Ni las depuradoras de agua usan tantos filtros como tú en tus fotos.",
-            "Cuando Dios repartía las caras, ¿estabas al final de la fila? No, es que tú te metiste en la fila equivocada.",
-            "Cuando vio tu selfie, el antivirus de mi móvil me avisó: '¡Amenaza detectada! ¡Eliminar inmediatamente!'.",
-            "Eres tan feo que hasta los fantasmas se ponen a rezar el rosario cuando te ven.",
-            "Cuando naciste, el médico no felicitó a tus padres por el bebé. Les felicitó por haber sobrevivido.",
-            "Tienes más confianza que cara, y ya es decir. Parece que tu espejo ha aprendido a mentir.",
-            "Eres tan bajo que hasta las hormigas te miran por encima del hombro.",
-            "Eres tan bajo que puedes barrer debajo de la cama sin agacharte.",
-            "Cuando naciste, el médico te lanzó al aire... y te perdiste."
-            // Add 90 more Spanish roasts here
-        ],
-        "pt": [ 
-            "Seu rosto é tão feio que até o desinfetante pouparia o 0.1% dos germes só para não ter que olhar para você.",
-            "Nem uma estação de tratamento de água usa tantos filtros quanto você nas suas fotos.",
-            "Quando Deus estava distribuindo os rostos, você estava no fim da fila? Não, você estava na fila errada.",
-            "Quando vi sua selfie, o antivírus do meu celular me avisou: 'Ameaça detectada! Apague imediatamente!'.",
-            "Você é tão feio que até os fantasmas começam a rezar o terço quando te veem.",
-            "Quando você nasceu, o médico não parabenizou seus pais pelo bebê. Ele os parabenizou por terem sobrevivido.",
-            "Para ter um rosto desses, você tem confiança até demais. Acho que o seu espelho aprendeu a mentir.",
-            "Você é tão baixo que até as formigas te olham de cima.",
-            "Você é tão baixo que consegue varrer debaixo da cama sem precisar se abaixar.",
-            "Quando você nasceu, o médico te jogou para o alto... e te perdeu de vista."
-            // Add 90 more Portuguese roasts here
-        ],
-        "ru": [ 
-            "У тебя такое лицо, что даже антисептик пощадил бы 0.1% микробов, лишь бы на тебя не смотреть.",
-            "Даже для очистки воды не используют столько фильтров, сколько ты накладываешь на свои фотографии.",
-            "Когда Бог раздавал лица, ты что, был в конце очереди? А, нет, ты вообще стоял в другой очереди.",
-            "Когда мой телефон увидел твое селфи, антивирус написал: 'Обнаружена угроза! Немедленно удалить!'.",
-            "Ты настолько уродлив, что даже призраки начинают креститься при виде тебя.",
-            "Когда ты родился, врач поздравил не твоих родителей с рождением ребенка, а с тем, что они выжили.",
-            "С таким лицом у тебя столько уверенности. Похоже, твое зеркало научилось врать.",
-            "Ты такой низкий, что даже муравьи смотрят на тебя свысока.",
-            "Твой рост настолько мал, что ты можешь подметать под кроватью, не наклоняясь.",
-            "Когда ты родился, доктор подбросил тебя в воздух... и ты так и не вернулся."
-            // Add 90 more Russian roasts here
-        ],
-        "fr": [ 
-            "Ton visage est si affreux que même le désinfectant laisserait vivre 0.1% des microbes juste pour ne pas avoir à te regarder.",
-            "Même les stations d'épuration n'utilisent pas autant de filtres que toi sur tes photos.",
-            "Quand Dieu distribuait les visages, tu étais le dernier dans la file ? Non, tu t'étais carrément trompé de file.",
-            "Quand mon téléphone a vu ton selfie, l'antivirus a hurlé : 'Menace détectée ! Supprimez
-            "Tu es si laid que même les fantômes se mettent à faire le signe de croix en te voyant.",
-            "Quand tu es né, le médecin n'a pas félicité tes parents pour le bébé. Il les a félicités d'avoir survécu.",
-            "Pour avoir une tête pareille, tu as une sacrée confiance en toi. Ton miroir a sûrement appris à mentir.",
-            "Tu es si petit que même les fourmis te regardent de haut.",
-            "Tu es si petit que tu peux passer le balai sous le lit en restant debout.",
-            "Quand tu es né, le docteur t'a lancé en l'air... et tu n'es jamais redescendu."
-            // Add 90 more French roasts here
-        ],
-        "de": [ 
-            "Dein Gesicht ist so hässlich, dass selbst Desinfektionsmittel die restlichen 0,1 % der Bakterien aus Mitleid am Leben lassen würde.",
-            "Für die Wasseraufbereitung braucht man weniger Filter als du für deine Fotos.",
-            "Als Gott die Gesichter verteilt hat, standest du da ganz hinten in der Schlange? Nein, du standest in der komplett falschen Schlange.",
-            "Als mein Handy dein Selfie sah, meldete sich der Virenscanner: 'Bedrohung erkannt! Sofort löschen!'",
-            "Du bist so hässlich, dass selbst Geister anfangen, das Vaterunser zu beten, wenn sie dich sehen.",
-            "Als du geboren wurdest, hat der Arzt nicht deinen Eltern zum Baby gratuliert, sondern dazu, dass sie es überlebt haben.",
-            "Für so ein Gesicht hast du erstaunlich viel Selbstvertrauen. Dein Spiegel hat anscheinend gelernt zu lügen.",
-            "Du bist so klein, dass dich sogar Ameisen von oben herab ansehen.",
-            "Du bist so klein, dass du unter dem Bett fegen kannst, ohne dich zu bücken.",
-            "Als du geboren wurdest, warf der Arzt dich in die Luft... und du bist nie wieder heruntergekommen."
-            // Add 90 more German roasts here
-        ],
-        "ar": [ 
-            "وجهك قبيح لدرجة أن ديتول نفسه سيترك 0.1% من الجراثيم شفقةً بها حتى لا تراك.",
-            "محطات تحلية المياه لا تستخدم فلاتر بقدر ما تستخدمها أنت على صورك.",
-            "عندما كان الله يوزع الوجوه، هل كنت في آخر الطابور؟ لا، أنت كنت في الطابور الخطأ.",
-            "عندما رأى هاتفي صورتك السيلفي، أطلق برنامج مكافحة الفيروسات تحذيرًا: 'خطر! احذف فورًا!'.",
-            "أنت قبيح لدرجة أن الأشباح نفسها تبدأ بقراءة القرآن عندما تراك.",
-            "عندما ولدت، لم يهنئ الطبيب والديك بالمولود، بل هنأهما لأنهما نجيا.",
-            "لديك ثقة بالنفس لا تتناسب مع وجهك. يبدو أن مرآتك تعلمت الكذب.",
-            "أنت قصير لدرجة أن النمل ينظر إليك من الأعلى.",
-            "طولك قصير جدًا لدرجة أنك تستطيع أن تكنس تحت السرير وأنت واقف.",
-            "عندما ولدت، رماك الطبيب في الهواء... ولم تعد أبدًا."
-            // Add 90 more Arabic roasts here
-        ],
-        "bn": [ 
-            "তোমার মুখ এতটাই খারাপ যে ডেটলও তোমাকে দেখে ৯৯.৯% জীবাণুকে একা ছেড়ে দেয়।",
-            "জল পরিষ্কার করতেও এত ফিল্টার লাগে না, যতটা তুমি নিজের ছবিতে লাগাও।",
-            "ভগবান যখন চেহারা বিলি করছিলেন, তুমি কি লাইনের শেষে ছিলে? না, তুমি তো অন্য লাইনেই দাঁড়িয়ে ছিলে।",
-            "তোমার সেলফি দেখে আমার ফোনের অ্যান্টি-ভাইরাসও বলে, 'বিপদ! এখনই ডিলিট করুন!'",
-            "তুমি এতটাই কুৎসিত যে ভূতও তোমাকে দেখে রাম নাম জপতে শুরু করে।",
-            "যখন তুমি জন্মেছিলে, ডাক্তার তোমার বাবা-মাকে অভিনন্দন জানিয়ে বলেছিলেন, 'আপনারা বেঁচে গেলেন!'",
-            "তোমার চেহারায় যা কনফিডেন্স, মনে হচ্ছে আয়না আজকাল মিথ্যে বলতে শিখে গেছে।",
-            "তুমি এতটাই বেঁটে যে পিঁপড়েও তোমাকে 'কাকু' বলে ডাকে।",
-            "তোমার উচ্চতা এতটাই কম যে তুমি দাঁড়িয়ে দাঁড়িয়ে খাটের নীচে ঝাড়ু দিতে পারো।",
-            "যখন তুমি জন্মেছিলে, ডাক্তার তোমাকে শূন্যে ছুড়ে দিয়েছিলেন, আর তুমি নীচে নামোনি। এখনও উড়ছ।"
-            // Add 90 more Bengali roasts here
-        ],
-        "ta": [ 
-            "உன் முகத்தைப் பார்த்தா டெட்டால் கூட 99.9% கிருமிகளைப் பாவப்பட்டு விட்டுவிடும்.",
-            "தண்ணீரைச் சுத்தம் செய்யக் கூட இவ்வளவு ஃபில்டர் யூஸ் பண்ண மாட்டாங்க, જેટલું நீ உன் போட்டோவுக்குப் பண்ற.",
-            "கடவுள் முகத்தை உருவாக்கும்போது நீ லைன்ல கடைசியா நின்னியா? இல்ல, நீ வேற ஏதோ லைன்ல நின்னுட்டு இருந்த.",
-            "உன் செல்ஃபியைப் பார்த்ததும் என் ஃபோனோட ஆன்ட்டி-வைரஸே சொல்லுது, 'ஆபத்து! உடனே டெலீட் பண்ணு!'",
-            "நீ அவ்ளோ அசிங்கமா இருக்க, பேய் கூட உன்னைப் பார்த்தா மந்திரம் சொல்ல ஆரம்பிச்சுடும்.",
-            "நீ பிறந்தப்போ, டாக்டர் உங்க அப்பா அம்மாக்கிட்ட 'பொழச்சுக்கிட்டீங்க!'னு தான் வாழ்த்து சொன்னாராம்.",
-            "உன் முகத்துல இருக்கிற நம்பிக்கையைப் பார்த்தா, கண்ணாடி பொய் சொல்லக் கத்துக்கிச்சு போல.",
-            "நீ அவ்ளோ குள்ளமா இருக்க, எறும்பு கூட உன்னை 'அங்கிள்'னு கூப்பிடும்.",
-            "உன் உயரம் அவ்ளோ கம்மி, நீ நின்னுகிட்டே கட்டிலுக்குக் கீழே கூட்டலாம்.",
-            "நீ பிறந்தப்போ, டாக்டர் உன்னைத் தூக்கிப் போட்டாராம், நீ இன்னும் கீழேயே வரல."
-            // Add 90 more Tamil roasts here
-        ],
-        "te": [ 
-            "నీ ముఖం ఎంత దరిద్రంగా ఉందంటే, డెటాల్ కూడా నిన్ను చూసి 99.9% క్రిములను జాలిపడి వదిలేస్తుంది.",
-            "నీళ్లను శుభ్రం చేయడానికి కూడా అన్ని ఫిల్టర్లు వాడరు, నువ్వు నీ ఫోటోలకు వాడినన్ని.",
-            "దేవుడు ముఖాలు పంచుతున్నప్పుడు నువ్వు లైన్‌లో చివర ఉన్నావా? లేదు, నువ్వు వేరే లైన్‌లో ఉన్నావు.",
-            "నీ సెల్ఫీ చూడగానే నా ఫోన్‌లోని యాంటీ-వైరస్ కూడా చెప్పింది, 'ప్రమాదం! వెంటనే డిలీట్ చెయ్యి!'",
-            "నువ్వు ఎంత వికారంగా ఉన్నావంటే, దెయ్యం కూడా నిన్ను చూసి దండకం చదవడం మొదలుపెడుతుంది.",
-            "నువ్వు పుట్టినప్పుడు, డాక్టర్ మీ అమ్మానాన్నలకు 'బతికిపోయారు!' అని అన్నాడు.",
-            "నీ ముఖంలో ఉన్న ధైర్యం చూస్తుంటే, అద్దం అబద్ధాలు చెప్పడం నేర్చుకున్నట్టుంది.",
-            "నువ్వు ఎంత పొట్టిగా ఉన్నావంటే, చీమ కూడా నిన్ను 'అంకుల్' అని పిలుస్తుంది.",
-            "నీ ఎత్తు ఎంత తక్కువంటే, నువ్వు నిలబడే మంచం కింద ఊడ్చగలవు.",
-            "నువ్వు పుట్టినప్పుడు, డాక్టర్ నిన్ను గాలిలోకి ఎగరేస్తే, నువ్వింకా కిందకే రాలేదు."
-            // Add 90 more Telugu roasts here
-        ],
-        "mr": [ 
-            "तुझा चेहरा इतका खराब आहे की तुला बघून डेटॉल सुद्धा ९९.९% किटाणूंना दयेपोटी सोडून देईल.",
-            "पाणी शुद्ध करायला पण एवढे फिल्टर लागत नाहीत, जेवढे तू तुझ्या फोटोवर लावतोस.",
-            "देवाने जेव्हा चेहरे वाटले, तेव्हा तू रांगेत सगळ्यात शेवटी होतास का? नाही, तू तर दुसऱ्याच रांगेत उभा होतास.",
-            "तुझा सेल्फी बघून माझ्या फोनचा अँटी-व्हायरस पण बोलतो, 'धोका! त्वरित डिलीट करा!'",
-            "तू इतका विचित्र दिसतोस की भूत सुद्धा तुला बघून हनुमान चालीसा म्हणायला लागतं.",
-            "जेव्हा तू जन्माला आलास, तेव्हा डॉक्टरने तुझ्या आई-वडिलांना 'वाचलात!' म्हणून अभिनंदन केलं होतं.",
-            "तुझ्या चेहऱ्यावर एवढा आत्मविश्वास आहे की, आरशाला खोटं बोलायची सवय लागली आहे असं वाटतं.",
-            "तू एवढा लहान आहेस की मुंगी पण तुला 'काका' बोलत असेल.",
-            "तुझी उंची इतकी कमी आहे की तू उभा राहूनच बेडखाली झाडू मारू शकतोस.",
-            "जेव्हा तू जन्माला आलास, तेव्हा डॉक्टरने तुला हवेत उडवलं, पण तू खालीच नाही आलास."
-            // Add 90 more Marathi roasts here
-        ],
-        "pa": [ 
-            "ਤੇਰੀ ਸ਼ਕਲ ਏਨੀ ਮਾੜੀ ਏ ਕਿ ਤੈਨੂੰ ਵੇਖ ਕੇ ਡਿਟੌਲ ਵੀ ੯੯.੯% ਕੀਟਾਣੂਆਂ ਨੂੰ ਤਰਸ ਖਾ ਕੇ ਛੱਡ ਦਿੰਦਾ ਏ।",
-            "ਜਿੰਨੇ ਫਿਲਟਰ ਤੂੰ ਆਪਣੀ ਫੋਟੋ 'ਤੇ ਲਾਉਂਦਾ ਏਂ, ਓਨੇ ਤਾਂ ਪਾਣੀ ਸਾਫ਼ ਕਰਨ 'ਤੇ ਵੀ ਨਹੀਂ ਲੱਗਦੇ।",
-            "ਜਦੋਂ ਰੱਬ ਸ਼ਕਲਾਂ ਵੰਡ ਰਿਹਾ ਸੀ, ਤੂੰ ਲਾਈਨ 'ਚ ਸਭ ਤੋਂ ਪਿੱਛੇ ਸੀ? ਨਹੀਂ, ਤੂੰ ਤਾਂ ਲਾਈਨ ਹੀ ਹੋਰ ਲਾਈ ਹੋਈ ਸੀ।",
-            "ਤੇਰੀ ਸੈਲਫੀ ਵੇਖ ਕੇ ਮੇਰੇ ਫੋਨ ਦਾ ਐਂਟੀ-ਵਾਇਰਸ ਵੀ ਕਹਿੰਦਾ, 'ਖਤਰਾ! ਹੁਣੇ ਡਿਲੀਟ ਕਰੋ!'",
-            "ਤੂੰ ਏਨਾ ਕੋਝਾ ਏਂ ਕਿ ਭੂਤ ਵੀ ਤੈਨੂੰ ਵੇਖ ਕੇ ਵਾਹਿਗੁਰੂ-ਵਾਹਿਗੁਰੂ ਕਰਨ ਲੱਗ ਪੈਂਦਾ ਏ।",
-            "ਜਦੋਂ ਤੂੰ ਜੰਮਿਆ ਸੀ, ਡਾਕਟਰ ਨੇ ਤੇਰੇ ਮਾਪਿਆਂ ਨੂੰ ਕਿਹਾ ਸੀ, 'ਵਧਾਈਆਂ! ਤੁਸੀਂ ਬੱਚ ਗਏ!'",
-            "ਤੇਰੇ ਚਿਹਰੇ 'ਤੇ ਏਨਾ ਕਾਨਫੀਡੈਂਸ ਏ, ਲੱਗਦਾ ਸ਼ੀਸ਼ੇ ਨੇ ਝੂਠ ਬੋਲਣਾ ਸਿੱਖ ਲਿਆ ਏ।",
-            "ਤੂੰ ਏਨਾ ਨਿੱਕਾ ਏਂ ਕਿ ਕੀੜੀ ਵੀ ਤੈਨੂੰ 'ਅੰਕਲ' ਕਹਿੰਦੀ ਹੋਊਗੀ।",
-            "ਤੇਰਾ ਕੱਦ ਏਨਾ ਛੋਟਾ ਏ ਕਿ ਤੂੰ ਖੜ੍ਹੇ-ਖੜ੍ਹੇ ਹੀ ਮੰਜੇ ਥੱਲੇ ਝਾੜੂ ਮਾਰ ਸਕਦਾ ਏਂ।",
-            "ਜਦੋਂ ਤੂੰ ਜੰਮਿਆ ਸੀ, ਡਾਕਟਰ ਨੇ ਤੈਨੂੰ ਹਵਾ 'ਚ ਉਛਾਲਿਆ, ਤੇ ਤੂੰ ਥੱਲੇ ਹੀ ਨਹੀਂ ਆਇਆ।"
-            // Add 90 more Punjabi roasts here
-        ]
-    };
-    
-    const uiText = {
-        "en": {
-            "hero-title": "🤪 Get Roasted Instantly! 🤪",
-            "hero-subtitle": "Type your name and hit the roast button!",
-            "name-input-placeholder": "Enter Your Name",
-            "generate-btn": "🔥 Generate Roast 🔥",
-            "result-title": "Result:",
-            "roast-again-btn": "🔄 Roast Again",
-            "copy-btn": "📋 Copy Text",
-            "share-btn": "📤 Share with Friends",
-            "top-roasts-title": "🔥 Top Roasts Today",
-            "footer-about": "About", "footer-privacy": "Privacy", "footer-contact": "Contact",
-            "empty-name-alert": "Please enter a name first, you ghost! 👻",
-            "copy-success": "Text copied to clipboard!",
-            "generating": "Generating..."
-        },
-        "hi": {
-            "hero-title": "🤪 तुरंत रोस्ट हो जाओ! 🤪",
-            "hero-subtitle": "अपना नाम टाइप करें और रोस्ट बटन दबाएं!",
-            "name-input-placeholder": "अपना नाम दर्ज करें",
-            "generate-btn": "🔥 रोस्ट जेनरेट करें 🔥",
-            "result-title": "परिणाम:",
-            "roast-again-btn": "🔄 फिर से रोस्ट करें",
-            "copy-btn": "📋 टेक्स्ट कॉपी करें",
-            "share-btn": "📤 दोस्तों के साथ शेयर करें",
-            "top-roasts-title": "🔥 आज के टॉप रोस्ट्स",
-            "footer-about": "हमारे बारे में", "footer-privacy": "गोपनीयता", "footer-contact": "संपर्क करें",
-            "empty-name-alert": "भाई, पहले नाम तो डाल! 👻",
-            "copy-success": "टेक्स्ट क्लिपबोर्ड पर कॉपी हो गया!",
-            "generating": "जेनरेट हो रहा है..."
-        },
-        "es": {
-            "hero-title": "🤪 ¡Que te insulten al instante! 🤪",
-            "hero-subtitle": "¡Escribe tu nombre y pulsa el botón de insultar!",
-            "name-input-placeholder": "Introduce tu nombre",
-            "generate-btn": "🔥 Generar insulto 🔥",
-            "result-title": "Resultado:",
-            "roast-again-btn": "🔄 Insultar de nuevo",
-            "copy-btn": "📋 Copiar texto",
-            "share-btn": "📤 Compartir con amigos",
-            "top-roasts-title": "🔥 Los mejores insultos de hoy",
-            "footer-about": "Acerca de", "footer-privacy": "Privacidad", "footer-contact": "Contacto",
-            "empty-name-alert": "¡Por favor, introduce un nombre primero, fantasma! 👻",
-            "copy-success": "¡Texto copiado al portapapeles!",
-            "generating": "Generando..."
-        },
-        "pt": {
-            "hero-title": "🤪 Leve uma zoeira instantânea! 🤪",
-            "hero-subtitle": "Digite seu nome e clique no botão de zoar!",
-            "name-input-placeholder": "Digite seu nome",
-            "generate-btn": "🔥 Gerar zoação 🔥",
-            "result-title": "Resultado:",
-            "roast-again-btn": "🔄 Zoar de novo",
-            "copy-btn": "📋 Copiar texto",
-            "share-btn": "📤 Compartilhar com amigos",
-            "top-roasts-title": "🔥 Melhores zoações de hoje",
-            "footer-about": "Sobre", "footer-privacy": "Privacidade", "footer-contact": "Contato",
-            "empty-name-alert": "Por favor, digite um nome primeiro, fantasma! 👻",
-            "copy-success": "Texto copiado para a área de transferência!",
-            "generating": "Gerando..."
-        },
-        "ru": {
-            "hero-title": "🤪 Получи прожарку мгновенно! 🤪",
-            "hero-subtitle": "Введи своё имя и нажми кнопку прожарки!",
-            "name-input-placeholder": "Введите ваше имя",
-            "generate-btn": "🔥 Сгенерировать прожарку 🔥",
-            "result-title": "Результат:",
-            "roast-again-btn": "🔄 Прожарить снова",
-            "copy-btn": "📋 Копировать текст",
-            "share-btn": "📤 Поделиться с друзьями",
-            "top-roasts-title": "🔥 Лучшие прожарки сегодня",
-            "footer-about": "О нас", "footer-privacy": "Конфиденциальность", "footer-contact": "Контакт",
-            "empty-name-alert": "Пожалуйста, сначала введите имя, призрак! 👻",
-            "copy-success": "Текст скопирован в буфер обмена!",
-            "generating": "Генерация..."
-        },
-        "fr": {
-            "hero-title": "🤪 Fais-toi clasher instantanément ! 🤪",
-            "hero-subtitle": "Tape ton nom et appuie sur le bouton clasher !",
-            "name-input-placeholder": "Entrez votre nom",
-            "generate-btn": "🔥 Générer un clash 🔥",
-            "result-title": "Résultat :",
-            "roast-again-btn": "🔄 Clasher à nouveau",
-            "copy-btn": "📋 Copier le texte",
-            "share-btn": "📤 Partager avec des amis",
-            "top-roasts-title": "🔥 Meilleurs clashs aujourd'hui",
-            "footer-about": "À propos", "footer-privacy": "Confidentialité", "footer-contact": "Contact",
-            "empty-name-alert": "Veuillez d'abord entrer un nom, fantôme ! 👻",
-            "copy-success": "Texte copié dans le presse-papiers !",
-            "generating": "Génération..."
-        },
-        "de": {
-            "hero-title": "🤪 Lass dich sofort roasten! 🤪",
-            "hero-subtitle": "Gib deinen Namen ein und drücke den Roast-Button!",
-            "name-input-placeholder": "Gib deinen Namen ein",
-            "generate-btn": "🔥 Roast generieren 🔥",
-            "result-title": "Ergebnis:",
-            "roast-again-btn": "🔄 Nochmal roasten",
-            "copy-btn": "📋 Text kopieren",
-            "share-btn": "📤 Mit Freunden teilen",
-            "top-roasts-title": "🔥 Top Roasts heute",
-            "footer-about": "Über uns", "footer-privacy": "Datenschutz", "footer-contact": "Kontakt",
-            "empty-name-alert": "Bitte zuerst einen Namen eingeben, du Geist! 👻",
-            "copy-success": "Text in die Zwischenablage kopiert!",
-            "generating": "Wird generiert..."
-        },
-        "ar": {
-            "hero-title": "🤪 احصل على سخرية فورية! 🤪",
-            "hero-subtitle": "اكتب اسمك واضغط على زر السخرية!",
-            "name-input-placeholder": "أدخل اسمك",
-            "generate-btn": "🔥 توليد سخرية 🔥",
-            "result-title": "النتيجة:",
-            "roast-again-btn": "🔄 سخر مرة أخرى",
-            "copy-btn": "📋 نسخ النص",
-            "share-btn": "📤 مشاركة مع الأصدقاء",
-            "top-roasts-title": "🔥 أفضل السخريات اليوم",
-            "footer-about": "حول", "footer-privacy": "الخصوصية", "footer-contact": "اتصل",
-            "empty-name-alert": "الرجاء إدخال اسم أولاً، أيها الشبح! 👻",
-            "copy-success": "تم نسخ النص إلى الحافظة!",
-            "generating": "جاري التوليد..."
-        },
-        "bn": {
-            "hero-title": "🤪 তাত্ক্ষণিকভাবে রোস্ট পান! 🤪",
-            "hero-subtitle": "আপনার নাম টাইপ করুন এবং রোস্ট বাটন টিপুন!",
-            "name-input-placeholder": "আপনার নাম লিখুন",
-            "generate-btn": "🔥 রোস্ট তৈরি করুন 🔥",
-            "result-title": "ফলাফল:",
-            "roast-again-btn": "🔄 আবার রোস্ট করুন",
-            "copy-btn": "📋 টেক্সট কপি করুন",
-            "share-btn": "📤 বন্ধুদের সাথে শেয়ার করুন",
-            "top-roasts-title": "🔥 আজকের শীর্ষ রোস্ট",
-            "footer-about": "সম্পর্কে", "footer-privacy": "গোপনীয়তা", "footer-contact": "যোগাযোগ",
-            "empty-name-alert": "দয়া করে প্রথমে একটি নাম লিখুন, ভূত! 👻",
-            "copy-success": "টেক্সট ক্লিপবোর্ডে কপি করা হয়েছে!",
-            "generating": "জেনারেট হচ্ছে..."
-        },
-        "ta": {
-            "hero-title": "🤪 உடனடியாக வறுத்தெடுக்கவும்! 🤪",
-            "hero-subtitle": "உங்கள் பெயரை தட்டச்சு செய்து ரோஸ்ட் பொத்தானை அழுத்தவும்!",
-            "name-input-placeholder": "உங்கள் பெயரை உள்ளிடவும்",
-            "generate-btn": "🔥 ரோஸ்ட் உருவாக்கு 🔥",
-            "result-title": "முடிவு:",
-            "roast-again-btn": "🔄 மீண்டும் ரோஸ்ட் செய்",
-            "copy-btn": "📋 உரையை நகலெடு",
-            "share-btn": "📤 நண்பர்களுடன் பகிர்",
-            "top-roasts-title": "🔥 இன்றைய சிறந்த ரோஸ்ட்கள்",
-            "footer-about": "பற்றி", "footer-privacy": "தனியுரிமை", "footer-contact": "தொடர்பு",
-            "empty-name-alert": "முதலில் ஒரு பெயரை உள்ளிடவும், பேயே! 👻",
-            "copy-success": "உரை கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!",
-            "generating": "உருவாக்குகிறது..."
-        },
-        "te": {
-            "hero-title": "🤪 తక్షణం రోస్ట్ అవ్వండి! 🤪",
-            "hero-subtitle": "మీ పేరు టైప్ చేసి రోస్ట్ బటన్ నొక్కండి!",
-            "name-input-placeholder": "మీ పేరు నమోదు చేయండి",
-            "generate-btn": "🔥 రోస్ట్ జనరేట్ చేయండి 🔥",
-            "result-title": "ఫలితం:",
-            "roast-again-btn": "🔄 మళ్లీ రోస్ట్ చేయండి",
-            "copy-btn": "📋 టెక్స్ట్ కాపీ చేయండి",
-            "share-btn": "📤 స్నేహితులతో షేర్ చేయండి",
-            "top-roasts-title": "🔥 నేటి టాప్ రోస్ట్లు",
-            "footer-about": "గురించి", "footer-privacy": "గోప్యత", "footer-contact": "సంప్రదించండి",
-            "empty-name-alert": "ముందుగా ఒక పేరు నమోదు చేయండి, ప్రేతం! 👻",
-            "copy-success": "టెక్స్ట్ క్లిప్బోర్డ్కు కాపీ చేయబడింది!",
-            "generating": "జనరేట్ చేస్తోంది..."
-        },
-        "mr": {
-            "hero-title": "🤪 तात्काळ रोस्ट होऊन जा! 🤪",
-            "hero-subtitle": "तुझं नाव टाईप कर आणि रोस्ट बटण दाब!",
-            "name-input-placeholder": "तुझं नाव टाका",
-            "generate-btn": "🔥 रोस्ट जनरेट करा 🔥",
-            "result-title": "निकाल:",
-            "roast-again-btn": "🔄 पुन्हा रोस्ट करा",
-            "copy-btn": "📋 मजकूर कॉपी करा",
-            "share-btn": "📤 मित्रांसोबत शेअर करा",
-            "top-roasts-title": "🔥 आजचे टॉप रोस्ट्स",
-            "footer-about": "आमच्याविषयी", "footer-privacy": "गोपनीयता", "footer-contact": "संपर्क",
-            "empty-name-alert": "आधी नाव टाका, भुत्या! 👻",
-            "copy-success": "मजकूर क्लिपबोर्डवर कॉपी झाला!",
-            "generating": "जनरेट होत आहे..."
-        },
-        "pa": {
-            "hero-title": "🤪 ਤੁਰੰਤ ਰੋਸਟ ਹੋ ਜਾਓ! 🤪",
-            "hero-subtitle": "ਆਪਣਾ ਨਾਮ ਟਾਈਪ ਕਰੋ ਅਤੇ ਰੋਸਟ ਬਟਨ ਦਬਾਓ!",
-            "name-input-placeholder": "ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ",
-            "generate-btn": "🔥 ਰੋਸਟ ਜਨਰੇਟ ਕਰੋ 🔥",
-            "result-title": "ਨਤੀਜਾ:",
-            "roast-again-btn": "🔄 ਦੁਬਾਰਾ ਰੋਸਟ ਕਰੋ",
-            "copy-btn": "📋 ਟੈਕਸਟ ਕਾਪੀ ਕਰੋ",
-            "share-btn": "📤 ਦੋਸਤਾਂ ਨਾਲ ਸ਼ੇਅਰ ਕਰੋ",
-            "top-roasts-title": "🔥 ਅੱਜ ਦੇ ਟਾਪ ਰੋਸਟਸ",
-            "footer-about": "ਬਾਰੇ", "footer-privacy": "ਪਰਾਈਵੇਸੀ", "footer-contact": "ਸੰਪਰਕ",
-            "empty-name-alert": "ਪਹਿਲਾਂ ਇੱਕ ਨਾਮ ਦਰਜ ਕਰੋ, ਭੂਤ! 👻",
-            "copy-success": "ਟੈਕਸਟ ਕਲਿੱਪਬੋਰਡ 'ਤੇ ਕਾਪੀ ਹੋ ਗਿਆ!",
-            "generating": "ਜਨਰੇਟ ਹੋ ਰਿਹਾ ਹੈ..."
-        }
-    };
-
-    // --- FUNCTIONS ---
-    function updateUIText(lang) {
-        document.getElementById('hero-title').textContent = uiText[lang]['hero-title'];
-        document.getElementById('hero-subtitle').textContent = uiText[lang]['hero-subtitle'];
-        document.getElementById('name-input').placeholder = uiText[lang]['name-input-placeholder'];
-        document.getElementById('generate-btn').textContent = uiText[lang]['generate-btn'];
-        document.getElementById('result-title').textContent = uiText[lang]['result-title'];
-        document.getElementById('roast-again-btn').textContent = uiText[lang]['roast-again-btn'];
-        document.getElementById('copy-btn').textContent = uiText[lang]['copy-btn'];
-        document.getElementById('share-btn').textContent = uiText[lang]['share-btn'];
-        document.getElementById('top-roasts-title').textContent = uiText[lang]['top-roasts-title'];
-        document.getElementById('footer-about').textContent = uiText[lang]['footer-about'];
-        document.getElementById('footer-privacy').textContent = uiText[lang]['footer-privacy'];
-        document.getElementById('footer-contact').textContent = uiText[lang]['footer-contact'];
-    }
-
-    function showToast(message) {
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }
-
-    function getRandomRoast() {
-        const roastList = roasts[currentLanguage];
-        
-        // If all roasts have been used, reset
-        if (usedRoasts.length >= roastList.length) {
-            usedRoasts = [];
-        }
-        
-        // Filter out used roasts
-        const availableRoasts = roastList.filter((_, index) => !usedRoasts.includes(index));
-        
-        // Get a random index from available roasts
-        const randomIndex = Math.floor(Math.random() * availableRoasts.length);
-        const actualIndex = roastList.indexOf(availableRoasts[randomIndex]);
-        
-        // Mark this roast as used
-        usedRoasts.push(actualIndex);
-        
-        return availableRoasts[randomIndex];
-    }
-
-    function generateRoast() {
-        const name = nameInput.value.trim(); 
-        if (name === "") {
-            roastOutput.textContent = uiText[currentLanguage]['empty-name-alert'];
-            resultSection.style.display = 'block';
-            return;
-        }
-        
-        // Show loading state
-        generateBtn.innerHTML = `<span class="loader"></span> ${uiText[currentLanguage]['generating']}`;
-        generateBtn.disabled = true;
-        roastOutput.style.opacity = '0.5';
-        
-        // Simulate loading with timeout
-        setTimeout(() => {
-            const randomRoast = getRandomRoast();
-            const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
-            roastOutput.textContent = `${capitalizedName}, ${randomRoast}`;
-            roastOutput.style.opacity = '1';
-            resultSection.style.display = 'block';
-            
-            // Reset button
-            generateBtn.innerHTML = uiText[currentLanguage]['generate-btn'];
-            generateBtn.disabled = false;
-            
-            // Play sound effect if available
-            playSound('generate');
-        }, 800);
-    }
-
-    function copyToClipboard() {
-        const roastText = roastOutput.textContent;
-        navigator.clipboard.writeText(roastText).then(() => {
-            showToast(uiText[currentLanguage]['copy-success']);
-            playSound('copy');
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-    }
-
-    async function shareRoast() {
-        const roastText = roastOutput.textContent;
-        const shareData = { 
-            title: 'I got Roasted! 🔥', 
-            text: `"${roastText}"\n\nRoast your friends too! 😂👇`, 
-            url: window.location.href 
+        // --- DATA ---
+        const roasts = {
+            "en": [ 
+                "Your face is the reason Dettol only kills 99.9% of germs. It saw you and let the last one go out of pity.",
+                "Water purifiers use fewer filters than you do on your photos.",
+                "When God was handing out faces, were you at the back of the line? No, you were in the wrong line altogether.",
+                "When I saw your selfie, my phone's antivirus warned me: 'Threat detected! Delete immediately!'",
+                "You're so ugly, even ghosts start chanting prayers when they see you.",
+                "When you were born, the doctor didn't congratulate your parents on the baby. He congratulated them on surviving the ordeal.",
+                "With a face like that, you have so much confidence. Your mirror has definitely learned how to lie.",
+                "You're so short, even ants look down on you.",
+                "You're so short, you can sweep under the bed without even bending over.",
+                "When you were born, the doctor tossed you in the air… and lost you.",
+                "There's so much empty space in your head, I could build a house there and still have a backyard.",
+                "Your ideas are so brilliant that nobody wants to be the one to use them.",
+                "If overthinking were an Olympic sport, you'd be a gold medalist.",
+                "You're so smart, you could invent your own answers in an exam and still get them wrong.",
+                "God gave you a brain but forgot to include the user manual.",
+                "Your brain's network is permanently out of the coverage area.",
+                "You're like a tube light that flickers on late... and sometimes, not at all.",
+                "There's only one difference between you and Einstein. He was a genius, and you... are you.",
+                "If your brain was for sale, it would be listed as 'Used... barely.'",
+                "Listening to you makes me think even Wikipedia has given up on updating facts."
+            ],
+            "hi": [ 
+                "तुम्हारी शकल इतनी ख़राब है कि तुम्हें देखकर Dettol भी 99.9% कीटाणुओं को अकेला छोड़ देता है।",
+                "इतना फ़िल्टर तो पानी साफ़ करने में नहीं लगता, जितना तुम अपनी फ़ोटो पर लगाते हो।",
+                "भगवान ने जब शकल बांटी थी, तो तुम लाइन में सबसे पीछे थे क्या? नहीं, तुम तो लाइन ही कहीं और लगाए हुए थे।",
+                "तुम्हारी सेल्फ़ी देखकर मेरे फ़ोन का एंटी-वायरस भी बोलता है, 'ख़तरा! तुरंत डिलीट करें!'",
+                "तुम इतने बदसूरत हो कि भूत भी तुम्हें देखकर हनुमान चालीसा पढ़ने लगता है।",
+                "जब तुम पैदा हुए थे, डॉक्टर ने तुम्हें नहीं, तुम्हारे माँ-बाप को कोंग्रेचुलेट किया था कि 'बच गए!'",
+                "तुम्हारे चेहरे पर इतना कॉन्फिडेंस है, लगता है आईना (mirror) झूठ बोलना सीख गया है।",
+                "तुम इतने छोटे हो कि तुम्हें चींटी भी 'अंकल' बोलती होगी।",
+                "तुम्हारी हाइट इतनी कम है कि तुम खड़े-खड़े बेड के नीचे झाड़ू लगा सकते हो।",
+                "तुम जब पैदा हुए थे, तो डॉक्टर ने तुम्हें हवा में उछाला, और तुम नीचे ही नहीं आए। तुम अब तक उड़ रहे हो।"
+            ],
+            "es": [ 
+                "Tu cara es tan fea que hasta el desinfectante perdonaría al 0.1% de los gérmenes solo para no tener que mirarte.",
+                "Ni las depuradoras de agua usan tantos filtros como tú en tus fotos.",
+                "Cuando Dios repartía las caras, ¿estabas al final de la fila? No, es que tú te metiste en la fila equivocada.",
+                "Cuando vio tu selfie, el antivirus de mi móvil me avisó: '¡Amenaza detectada! ¡Eliminar inmediatamente!'.",
+                "Eres tan feo que hasta los fantasmas se ponen a rezar el rosario cuando te ven.",
+                "Cuando naciste, el médico no felicitó a tus padres por el bebé. Les felicitó por haber sobrevivido.",
+                "Tienes más confianza que cara, y ya es decir. Parece que tu espejo ha aprendido a mentir.",
+                "Eres tan bajo que hasta las hormigas te miran por encima del hombro.",
+                "Eres tan bajo que puedes barrer debajo de la cama sin agacharte.",
+                "Cuando naciste, el médico te lanzó al aire... y te perdiste."
+            ],
+            "pt": [ 
+                "Seu rosto é tão feio que até o desinfetante pouparia o 0.1% dos germes só para não ter que olhar para você.",
+                "Nem uma estação de tratamento de água usa tantos filtros quanto você nas suas fotos.",
+                "Quando Deus estava distribuindo os rostos, você estava no fim da fila? Não, você estava na fila errada.",
+                "Quando vi sua selfie, o antivírus do meu celular me avisou: 'Ameaça detectada! Apague imediatamente!'.",
+                "Você é tão feio que até os fantasmas começam a rezar o terço quando te veem.",
+                "Quando você nasceu, o médico não parabenizou seus parents pelo bebê. Ele os parabenizou por terem sobrevivido.",
+                "Para ter um rosto desses, você tem confiança até demais. Acho que o seu espelho aprendeu a mentir.",
+                "Você é tão baixo que até as formigas te olham de cima.",
+                "Você é tão baixo que consegue varrer debaixo da cama sem precisar se abaixar.",
+                "Quando você nasceu, o médico te jogou para o alto... e te perdeu de vista."
+            ],
+            "ru": [ 
+                "У тебя такое лицо, что даже антисептик пощадил бы 0.1% микробов, лишь бы на тебя не смотреть.",
+                "Даже для очистки воды не используют столько фильтров, сколько ты накладываешь на свои фотографии.",
+                "Когда Бог раздавал лица, ты что, был в конце очереди? А, нет, ты вообще стоял в другой очереди.",
+                "Когда мой телефон увидел твое селфи, антивирус написал: 'Обнаружена угроза! Немедленно удалить!'.",
+                "Ты настолько уродлив, что даже призраки начинают креститься при виде тебя.",
+                "Когда ты родился, врач поздравил не твоих родителей с рождением ребенка, а с тем, что они выжили.",
+                "С таким лицом у тебя столько уверенности. Похоже, твое зеркало научилось врать.",
+                "Ты такой низкий, что даже муравьи смотрят на тебя свысока.",
+                "Твой рост настолько мал, что ты можешь подметать под кроватью, не наклоняясь.",
+                "Когда ты родился, доктор подбросил тебя в воздух... и ты так и не вернулся."
+            ],
+            "fr": [ 
+                "Ton visage est si affreux que même le désinfectant laisserait vivre 0.1% des microbes juste pour ne pas avoir à te regarder.",
+                "Même les stations d'épuration n'utilisent pas autant de filtres que toi sur tes photos.",
+                "Quand Dieu distribuait les visages, tu étais le dernier dans la file ? Non, tu t'étais carrément trompé de file.",
+                "Quand mon téléphone a vu ton selfie, l'antivirus a hurlé : 'Menace détectée ! Supprimez immédiatement !'.",
+                "Tu es si laid que même les fantômes se mettent à faire le signe de croix en te voyant.",
+                "Quand tu es né, le médecin n'a pas félicité tes parents pour le bébé. Il les a félicités d'avoir survécu.",
+                "Pour avoir une tête pareille, tu as une sacrée confiance en toi. Ton miroir a sûrement appris à mentir.",
+                "Tu es si petit que même les fourmis te regardent de haut.",
+                "Tu es si petit que tu peux passer le balai sous le lit en restant debout.",
+                "Quand tu es né, le docteur t'a lancé en l'air... et tu n'es jamais redescendu."
+            ],
+            "de": [ 
+                "Dein Gesicht ist so hässlich, dass selbst Desinfektionsmittel die restlichen 0,1 % der Bakterien aus Mitleid am Leben lassen würde.",
+                "Für die Wasseraufbereitung braucht man weniger Filter als du für deine Fotos.",
+                "Als Gott die Gesichter verteilt hat, standest du da ganz hinten in der Schlange? Nein, du standest in der komplett falschen Schlange.",
+                "Als mein Handy dein Selfie sah, meldete sich der Virenscanner: 'Bedrohung erkannt! Sofort löschen!'",
+                "Du bist so hässlich, dass selbst Geister anfangen, das Vaterunser zu beten, wenn sie dich sehen.",
+                "Als du geboren wurdest, hat der Arzt nicht deinen Eltern zum Baby gratuliert, sondern dazu, dass sie es überlebt haben.",
+                "Für so ein Gesicht hast du erstaunlich viel Selbstvertrauen. Dein Spiegel hat anscheinend gelernt zu lügen.",
+                "Du bist so klein, dass dich sogar Ameisen von oben herab ansehen.",
+                "Du bist so klein, dass du unter dem Bett fegen kannst, ohne dich zu bücken.",
+                "Als du geboren wurdest, warf der Arzt dich in die Luft... und du bist nie wieder heruntergekommen."
+            ],
+            "ar": [ 
+                "وجهك قبيح لدرجة أن ديتول نفسه سيترك 0.1% من الجراثيم شفقةً بها حتى لا تراك.",
+                "محطات تحلية المياه لا تستخدم فلاتر بقدر ما تستخدمها أنت على صورك.",
+                "عندما كان الله يوزع الوجوه، هل كنت في آخر الطابور؟ لا، أنت كنت في الطابور الخطأ.",
+                "عندما رأى هاتفي صورتك السيلفي، أطلق برنامج مكافحة الفيروسات تحذيرًا: 'خطر! احذف فورًا!'.",
+                "أنت قبيح لدرجة أن الأشباح نفسها تبدأ بقراءة القرآن عندما تراك.",
+                "عندما ولدت، لم يهنئ الطبيب والديك بالمولود، بل هنأهما لأنهما نجيا.",
+                "لديك ثقة بالنفس لا تتناسب مع وجهك. يبدو أن مرآتك تعلمت الكذب.",
+                "أنت قصير لدرجة أن النمل ينظر إليك من الأعلى.",
+                "طولك قصير جدًا لدرجة أنك تستطيع أن تكنس تحت السرير وأنت واقف.",
+                "عندما ولدت، رماك الطبيب في الهواء... ولم تعد أبدًا."
+            ],
+            "bn": [ 
+                "তোমার মুখ এতটাই খারাপ যে ডেটলও তোমাকে দেখে ৯৯.৯% জীবাণুকে একা ছেড়ে দেয়।",
+                "জল পরিষ্কার করতেও এত ফিল্টার লাগে না, যতটা তুমি নিজের ছবিতে লাগাও।",
+                "ভগবান যখন চেহারা বিলি করছিলেন, তুমি কি লাইনের শেষে ছিলে? না, তুমি তো অন্য লাইনেই দাঁড়িয়ে ছিলে।",
+                "তোমার সেলফি দেখে আমার ফোনের অ্যান্টি-ভাইরাসও বলে, 'বিপদ! এখনই ডিলিট করুন!'",
+                "তুমি এতটাই কুৎসিত যে ভূতও তোমাকে দেখে রাম নাম জপতে শুরু করে।",
+                "যখন তুমি জন্মেছিলে, ডাক্তার তোমার বাবা-মাকে অভিনন্দন জানিয়ে বলেছিলেন, 'আপনারা বেঁচে গেলেন!'",
+                "তোমার চেহারায় যা কনফিডেন্স, মনে হচ্ছে আয়না আজকাল মিথ্যে বলতে শিখে গেছে।",
+                "তুমি এতটাই বেঁটে যে পিঁপড়েও তোমাকে 'কাকু' বলে ডাকে।",
+                "তোমার উচ্চতা এতটাই কম যে তুমি দাঁড়িয়ে দাঁড়িয়ে খাটের নীচে ঝাড়ু দিতে পারো।",
+                "যখন তুমি জন্মেছিলে, ডাক্তার তোমাকে শূন্যে ছুড়ে দিয়েছিলেন, আর তুমি নীচে নামোনি। এখনও উড়ছ।"
+            ],
+            "ta": [ 
+                "உன் முகத்தைப் பார்த்தா டெட்டால் கூட 99.9% கிருமிகளைப் பாவப்பட்டு விட்டுவிடும்.",
+                "தண்ணீரைச் சுத்தம் செய்யக் கூட இவ்வளவு ஃபில்டர் யூஸ் பண்ண மாட்டாங்க, જેટலું நீ உன் போட்டோவுக்குப் பண்ற.",
+                "கடவுள் முகத்தை உருவாக்கும்போது நீ லைன்ல கடைசியா நின்னியா? இல்ல, நீ வேற ஏதோ லைன்ல நின்னுட்டு இருந்த.",
+                "உன் செல்ஃபியைப் பார்த்ததும் என் ஃபோனோட ஆன்ட்டி-வைரஸே சொல்லுது, 'ஆபத்து! உடனே டெலீட் பண்ணு!'",
+                "நீ அவ்ளோ அசிங்கமா இருக்க, பேய் கூட உன்னைப் பார்த்தா மந்திரம் சொல்ல ஆரம்பிச்சுடும்.",
+                "நீ பிறந்தப்போ, டாக்டர் உங்க அப்பா அம்மாக்கிட்ட 'பொழச்சுக்கிட்டீங்க!'னு தான் வாழ்த்து சொன்னாராம்.",
+                "உன் முகத்துல இருக்கிற நம்பிக்கையைப் பார்த்தா, கண்ணாடி பொய் சொல்லக் கத்துக்கிச்சு போல.",
+                "நீ அவ்ளோ குள்ளமா இருக்க, எறும்பு கூட உன்னை 'அங்கிள்'னு கூப்பிடும்.",
+                "உன் உயரம் அவ்ளோ கம்மி, நீ நின்னுகிட்டே கட்டிலுக்குக் கீழே கூட்டலாம்.",
+                "நீ பிறந்தப்போ, டாக்டர் உன்னைத் தூக்கிப் போட்டாராம், நீ இன்னும் கீழேயே வரல."
+            ],
+            "te": [ 
+                "నీ ముఖం ఎంత దరిద్రంగా ఉందంటే, డెటాల్ కూడా నిన్ను చూసి 99.9% క్రిములను జాలిపడి వదిలేస్తుంది.",
+                "నీళ్లను శుభ్రం చేయడానికి కూడా అన్ని ఫిల్టర్లు వాడరు, నువ్వు నీ ఫోటోలకు వాడినన్ని.",
+                "దేవుడు ముఖాలు పంచుతున్నప్పుడు నువ్వు లైన్‌లో చివర ఉన్నావా? లేదు, నువ్వు వేరే లైన్‌లో ఉన్నావు.",
+                "నీ సెల్ఫీ చూడగానే నా ఫోన్‌లోని యాంటీ-వైరస్ కూడా చెప్పింది, 'ప్రమాదం! వెంటనే డిలీట్ చెయ్యి!'",
+                "నువ్వు ఎంత వికారంగా ఉన్నావంటే, దెయ్యం కూడా నిన్ను చూసి దండకం చదవడం మొదలుపెడుతుంది.",
+                "నువ్వు పుట్టినప్పుడు, డాక్టర్ మీ అమ్మానాన్నలకు 'బతికిపోయారు!' అని అన్నాడు.",
+                "నీ ముఖంలో ఉన్న ధైర్యం చూస్తుంటే, అద్దం అబద్ధాలు చెప్పడం నేర్చుకున్నట్టుంది.",
+                "నువ్వు ఎంత పొట్టిగా ఉన్నావంటే, చీమ కూడా నిన్ను 'అంకుల్' అని పిలుస్తుంది.",
+                "నీ ఎత్తు ఎంత తక్కువంటే, నువ్వు నిలబడే మంచం కింద ఊడ్చగలవు.",
+                "నువ్వు పుట్టినప్పుడు, డాక్టర్ నిన్ను గాలిలోకి ఎగరేస్తే, నువ్వింకా కిందకే రాలేదు."
+            ],
+            "mr": [ 
+                "तुझा चेहरा इतका खराब आहे की तुला बघून डेटॉल सुद्धा ९९.९% किटाणूंना दयेपोटी सोडून देईल.",
+                "पाणी शुद्ध करायला पण एवढे फिल्टर लागत नाहीत, जेवढे तू तुझ्या फोटोवर लावतोस.",
+                "देवाने जेव्हा चेहरे वाटले, तेव्हा तू रांगेत सगळ्यात शेवटी होतास का? नही, तू तर दुसऱ्याच रांगेत उभा होतास.",
+                "तुझा सेल्फी बघून माझ्या फोनचा अँटी-व्हायरस पण बोलतो, 'धोका! त्वरित डिलीट करा!'",
+                "तू इतका विचित्र दिसतोस की भूत सुद्धा तुला बघून हनुमान चालीसा म्हणायला लागतं.",
+                "जेव्हा तू जन्माला आलास, तेव्हा डॉक्टरने तुझ्या आई-वडिलांना 'वाचलात!' म्हणून अभिनंदन केलं होतं.",
+                "तुझ्या चेहऱ्यावर एवढा आत्मविश्वास आहे की, आरशाला खोटं बोलायची सवय लागली आहे असं वाटतं.",
+                "तू एवढा लहान आहेस की मुंगी पण तुला 'काका' बोलत असेल.",
+                "तुझी उंची इतकी कमी आहे की तू उभा राहूनच बेडखाली झाडू मारू शकतोस.",
+                "जेव्हा तू जन्माला आलास, तेव्हा डॉक्टरने तुला हवेत उडवलं, पण तू खालीच नाही आलास."
+            ],
+            "pa": [ 
+                "ਤੇਰੀ ਸ਼ਕਲ ਏਨੀ ਮਾੜੀ ਏ ਕਿ ਤੈਨੂੰ ਵੇਖ ਕੇ ਡਿਟੌਲ ਵੀ ੯੯.੯% ਕੀਟਾਣੂਆਂ ਨੂੰ ਤਰਸ ਖਾ ਕੇ ਛੱਡ ਦਿੰਦਾ ਏ।",
+                "ਜਿੰਨੇ ਫਿਲਟਰ ਤੂੰ ਆਪਣੀ ਫੋਟੋ 'ਤੇ ਲਾਉਂਦਾ ਏਂ, ਓਨੇ ਤਾਂ ਪਾਣੀ ਸਾਫ਼ ਕਰਨ 'ਤੇ ਵੀ ਨਹੀਂ ਲੱਗਦੇ।",
+                "ਜਦੋਂ ਰੱਬ ਸ਼ਕਲਾਂ ਵੰਡ ਰਿਹਾ ਸੀ, ਤੂੰ ਲਾਈਨ 'ਚ ਸਭ ਤੋਂ ਪਿੱਛੇ ਸੀ? ਨਹੀਂ, ਤੂੰ ਤਾਂ ਲਾਈਨ ਹੀ ਹੋਰ ਲਾਈ ਹੋਈ ਸੀ।",
+                "ਤੇਰੀ ਸੈਲਫੀ ਵੇਖ ਕੇ ਮੇਰੇ ਫੋਨ ਦਾ ਐਂਟੀ-ਵਾਇਰਸ ਵੀ ਕਹਿੰਦਾ, 'ਖਤਰਾ! ਹੁਣੇ ਡਿਲੀਟ ਕਰੋ!'",
+                "ਤੂੰ ਏਨਾ ਕੋਝਾ ਏਂ ਕਿ ਭੂਤ ਵੀ ਤੈਨੂੰ ਵੇਖ ਕੇ ਵਾਹਿਗੁਰੂ-ਵਾਹਿਗੁਰੂ ਕਰਨ ਲੱਗ ਪੈਂਦਾ ਏ।",
+                "ਜਦੋਂ ਤੂੰ ਜੰਮਿਆ ਸੀ, ਡਾਕਟਰ ਨੇ ਤੇਰੇ ਮਾਪਿਆਂ ਨੂੰ ਕਿਹਾ ਸੀ, 'ਵਧਾਈਆਂ! ਤੁਸੀਂ ਬੱਚ ਗਏ!'",
+                "ਤੇਰੇ ਚਿਹਰੇ 'ਤੇ ਏਨਾ कॉन्फिडेंस ਏ, ਲੱਗਦਾ ਸ਼ੀਸ਼ੇ ਨੇ ਝੂਠ ਬੋਲਣਾ ਸਿੱਖ ਲਿਆ ਏ।",
+                "ਤੂੰ ਏਨਾ ਨਿੱਕਾ ਏਂ ਕਿ ਕੀੜੀ ਵੀ ਤੈਨੂੰ 'ਅੰਕਲ' ਕਹਿੰਦੀ ਹੋਊਗੀ।",
+                "ਤੇਰਾ ਕੱਦ ਏਨਾ ਛੋਟਾ ਏ ਕਿ ਤੂੰ ਖੜ੍ਹੇ-ਖੜ੍ਹੇ ਹੀ ਮੰਜੇ ਥੱਲੇ ਝਾੜੂ ਮਾਰ ਸਕਦਾ ਏਂ।",
+                "ਜਦੋਂ ਤੂੰ ਜੰਮਿਆ ਸੀ, ਡਾਕਟਰ ਨੇ ਤैनूੰ हवा 'च उछालਿਆ, ते तूं थल्ले ही नहीं आइआ।"
+            ]
         };
         
-        if (navigator.share) {
-            try { 
-                await navigator.share(shareData); 
-                playSound('share');
-            } catch (err) { 
-                console.log('Error sharing:', err); 
+        const uiText = {
+            "en": {
+                "hero-title": "🤪 Get Roasted Instantly! 🤪",
+                "hero-subtitle": "Type your name and hit the roast button!",
+                "name-input-placeholder": "Enter Your Name",
+                "generate-btn": "🔥 Generate Roast",
+                "result-title": "Your Roast:",
+                "roast-again-btn": "🔄 Roast Again",
+                "copy-btn": "📋 Copy Text",
+                "share-btn": "📤 Share",
+                "top-roasts-title": "🔥 Popular Roasts",
+                "footer-about": "About", 
+                "footer-privacy": "Privacy", 
+                "footer-contact": "Contact",
+                "empty-name-alert": "Please enter a name first, you ghost! 👻",
+                "copy-success": "Text copied to clipboard!",
+                "generating": "Generating..."
+            },
+            "hi": {
+                "hero-title": "🤪 तुरंत रोस्ट हो जाओ! 🤪",
+                "hero-subtitle": "अपना नाम टाइप करें और रोस्ट बटन दबाएं!",
+                "name-input-placeholder": "अपना नाम दर्ज करें",
+                "generate-btn": "🔥 रोस्ट जेनरेट करें",
+                "result-title": "आपका रोस्ट:",
+                "roast-again-btn": "🔄 फिर से रोस्ट करें",
+                "copy-btn": "📋 टेक्स्ट कॉपी करें",
+                "share-btn": "📤 शेयर करें",
+                "top-roasts-title": "🔥 लोकप्रिय रोस्ट",
+                "footer-about": "हमारे बारे में", 
+                "footer-privacy": "गोपनीयता", 
+                "footer-contact": "संपर्क करें",
+                "empty-name-alert": "भाई, पहले नाम तो डाल! 👻",
+                "copy-success": "टेक्स्ट क्लिपबोर्ड पर कॉपी हो गया!",
+                "generating": "जेनरेट हो रहा है..."
+            },
+            "es": {
+                "hero-title": "🤪 ¡Que te insulten al instante! 🤪",
+                "hero-subtitle": "¡Escribe tu nombre y pulsa el botón de insultar!",
+                "name-input-placeholder": "Introduce tu nombre",
+                "generate-btn": "🔥 Generar insulto",
+                "result-title": "Tu insulto:",
+                "roast-again-btn": "🔄 Insultar de nuevo",
+                "copy-btn": "📋 Copiar texto",
+                "share-btn": "📤 Compartir",
+                "top-roasts-title": "🔥 Insultos populares",
+                "footer-about": "Acerca de", 
+                "footer-privacy": "Privacidad", 
+                "footer-contact": "Contacto",
+                "empty-name-alert": "¡Por favor, introduce un nombre primero, fantasma! 👻",
+                "copy-success": "¡Texto copiado al portapapeles!",
+                "generating": "Generando..."
+            },
+            "pt": {
+                "hero-title": "🤪 Leve uma zoeira instantânea! 🤪",
+                "hero-subtitle": "Digite seu nome e clique no botão de zoar!",
+                "name-input-placeholder": "Digite seu nome",
+                "generate-btn": "🔥 Gerar zoação",
+                "result-title": "Sua zoeira:",
+                "roast-again-btn": "🔄 Zoar de novo",
+                "copy-btn": "📋 Copiar texto",
+                "share-btn": "📤 Compartilhar",
+                "top-roasts-title": "🔥 Zoações populares",
+                "footer-about": "Sobre", 
+                "footer-privacy": "Privacidade", 
+                "footer-contact": "Contato",
+                "empty-name-alert": "Por favor, digite um nome primeiro, fantasma! 👻",
+                "copy-success": "Texto copiado para a área de transferência!",
+                "generating": "Gerando..."
+            },
+            "ru": {
+                "hero-title": "🤪 Получи прожарку мгновенно! 🤪",
+                "hero-subtitle": "Введи своё имя и нажми кнопку прожарки!",
+                "name-input-placeholder": "Введите ваше имя",
+                "generate-btn": "🔥 Сгенерировать прожарку",
+                "result-title": "Ваша прожарка:",
+                "roast-again-btn": "🔄 Прожарить снова",
+                "copy-btn": "📋 Копировать текст",
+                "share-btn": "📤 Поделиться",
+                "top-roasts-title": "🔥 Популярные прожарки",
+                "footer-about": "О нас", 
+                "footer-privacy": "Конфиденциальность", 
+                "footer-contact": "Контакт",
+                "empty-name-alert": "Пожалуйста, сначала введите имя, призрак! 👻",
+                "copy-success": "Текст скопирован в буфер обмена!",
+                "generating": "Генерация..."
+            },
+            "fr": {
+                "hero-title": "🤪 Fais-toi clasher instantanément ! 🤪",
+                "hero-subtitle": "Tape ton nom et appuie sur le bouton clasher !",
+                "name-input-placeholder": "Entrez votre nom",
+                "generate-btn": "🔥 Générer un clash",
+                "result-title": "Ton clash:",
+                "roast-again-btn": "🔄 Clasher à nouveau",
+                "copy-btn": "📋 Copier le texte",
+                "share-btn": "📤 Partager",
+                "top-roasts-title": "🔥 Clashs populaires",
+                "footer-about": "À propos", 
+                "footer-privacy": "Confidentialité", 
+                "footer-contact": "Contact",
+                "empty-name-alert": "Veuillez d'abord entrer un nom, fantôme ! 👻",
+                "copy-success": "Texte copié dans le presse-papiers !",
+                "generating": "Génération..."
+            },
+            "de": {
+                "hero-title": "🤪 Lass dich sofort roasten! 🤪",
+                "hero-subtitle": "Gib deinen Namen ein und drücke den Roast-Button!",
+                "name-input-placeholder": "Gib deinen Namen ein",
+                "generate-btn": "🔥 Roast generieren",
+                "result-title": "Dein Roast:",
+                "roast-again-btn": "🔄 Nochmal roasten",
+                "copy-btn": "📋 Text kopieren",
+                "share-btn": "📤 Teilen",
+                "top-roasts-title": "🔥 Beliebte Roasts",
+                "footer-about": "Über uns", 
+                "footer-privacy": "Datenschutz", 
+                "footer-contact": "Kontakt",
+                "empty-name-alert": "Bitte zuerst einen Namen eingeben, du Geist! 👻",
+                "copy-success": "Text in die Zwischenablage kopiert!",
+                "generating": "Wird generiert..."
+            },
+            "ar": {
+                "hero-title": "🤪 احصل على سخرية فورية! 🤪",
+                "hero-subtitle": "اكتب اسمك واضغط على زر السخرية!",
+                "name-input-placeholder": "أدخل اسمك",
+                "generate-btn": "🔥 توليد سخرية",
+                "result-title": "سخريتك:",
+                "roast-again-btn": "🔄 سخر مرة أخرى",
+                "copy-btn": "📋 نسخ النص",
+                "share-btn": "📤 مشاركة",
+                "top-roasts-title": "🔥 السخريات الشعبية",
+                "footer-about": "حول", 
+                "footer-privacy": "الخصوصية", 
+                "footer-contact": "اتصل",
+                "empty-name-alert": "الرجاء إدخال اسم أولاً، أيها الشبح! 👻",
+                "copy-success": "تم نسخ النص إلى الحافظة!",
+                "generating": "جاري التوليد..."
+            },
+            "bn": {
+                "hero-title": "🤪 তাত্ক্ষণিকভাবে রোস্ট পান! 🤪",
+                "hero-subtitle": "আপনার নাম টাইপ করুন এবং রোস্ট বাটন টিপুন!",
+                "name-input-placeholder": "আপনার নাম লিখুন",
+                "generate-btn": "🔥 রোস্ট তৈরি করুন",
+                "result-title": "আপনার রোস্ট:",
+                "roast-again-btn": "🔄 আবার রোস্ট করুন",
+                "copy-btn": "📋 টেক্সট কপি করুন",
+                "share-btn": "📤 শেয়ার করুন",
+                "top-roasts-title": "🔥 জনপ্রিয় রোস্ট",
+                "footer-about": "সম্পর্কে", 
+                "footer-privacy": "গোপনীয়তা", 
+                "footer-contact": "যোগাযোগ",
+                "empty-name-alert": "দয়া করে প্রথমে একটি নাম লিখুন, ভূত! 👻",
+                "copy-success": "টেক্সট ক্লিপবোর্ডে কপি করা হয়েছে!",
+                "generating": "জেনারেট হচ্ছে..."
+            },
+            "ta": {
+                "hero-title": "🤪 உடனடியாக வறுத்தெடுக்கவும்! 🤪",
+                "hero-subtitle": "உங்கள் பெயரை தட்டச்சு செய்து ரோஸ்ட் பொத்தானை அழுத்தவும்!",
+                "name-input-placeholder": "உங்கள் பெயரை உள்ளிடவும்",
+                "generate-btn": "🔥 ரோஸ்ட் உருவாக்கு",
+                "result-title": "உங்கள் ரோஸ்ட்:",
+                "roast-again-btn": "🔄 மீண்டும் ரோஸ்ட் செய்",
+                "copy-btn": "📋 உரையை நகலெடு",
+                "share-btn": "📤 பகிர்",
+                "top-roasts-title": "🔥 பிரபலமான ரோஸ்ட்கள்",
+                "footer-about": "பற்றி", 
+                "footer-privacy": "தனியுரிமை", 
+                "footer-contact": "தொடர்பு",
+                "empty-name-alert": "முதலில் ஒரு பெயரை உள்ளிடவும், பேயே! 👻",
+                "copy-success": "உரை கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!",
+                "generating": "உருவாக்குகிறது..."
+            },
+            "te": {
+                "hero-title": "🤪 తక్షణం రోస్ట్ అవ్వండి! 🤪",
+                "hero-subtitle": "మీ పేరు టైప్ చేసి రోస్ట్ బటన్ నొక్కండి!",
+                "name-input-placeholder": "మీ పేరు నమోదు చేయండి",
+                "generate-btn": "🔥 రోస్ట్ జనరేట్ చేయండి",
+                "result-title": "మీ రోస్ట్:",
+                "roast-again-btn": "🔄 మళ్లీ రోస్ట్ చేయండి",
+                "copy-btn": "📋 టెక్స్ట్ కాపీ చేయండి",
+                "share-btn": "📤 షేర్ చేయండి",
+                "top-roasts-title": "🔥 ప్రసిద్ధ రోస్ట్లు",
+                "footer-about": "గురించి", 
+                "footer-privacy": "గోప్యత", 
+                "footer-contact": "సంప్రదించండి",
+                "empty-name-alert": "ముందుగా ఒక పేరు నమోదు చేయండి, ప్రేతం! 👻",
+                "copy-success": "టెక్స్ట్ క్లిప్బోర్డ్కు కాపీ చేయబడింది!",
+                "generating": "జనరేట్ చేస్తోంది..."
+            },
+            "mr": {
+                "hero-title": "🤪 तात्काळ रोस्ट होऊन जा! 🤪",
+                "hero-subtitle": "तुझं नाव टाईप कर आणि रोस्ट बटण दाब!",
+                "name-input-placeholder": "तुझं नाव टाका",
+                "generate-btn": "🔥 रोस्ट जनरेट करा",
+                "result-title": "तुझा रोस्ट:",
+                "roast-again-btn": "🔄 पुन्हा रोस्ट करा",
+                "copy-btn": "📋 मजकूर कॉपी करा",
+                "share-btn": "📤 शेअर करा",
+                "top-roasts-title": "🔥 लोकप्रिय रोस्ट्स",
+                "footer-about": "आमच्याविषयी", 
+                "footer-privacy": "गोपनीयता", 
+                "footer-contact": "संपर्क",
+                "empty-name-alert": "आधी नाव टाका, भुत्या! 👻",
+                "copy-success": "मजकूर क्लिपबोर्डवर कॉपी झाला!",
+                "generating": "जनरेट होत आहे..."
+            },
+            "pa": {
+                "hero-title": "🤪 ਤੁਰੰਤ ਰੋਸਟ ਹੋ ਜਾਓ! 🤪",
+                "hero-subtitle": "ਆਪਣਾ ਨਾਮ ਟਾਈਪ ਕਰੋ ਅਤੇ ਰੋਸਟ ਬਟਨ ਦਬਾਓ!",
+                "name-input-placeholder": "ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ",
+                "generate-btn": "🔥 ਰੋਸਟ ਜਨਰੇਟ ਕਰੋ",
+                "result-title": "ਤੁਹਾਡਾ ਰੋਸਟ:",
+                "roast-again-btn": "🔄 ਦੁਬਾਰਾ ਰोਸਟ ਕਰੋ",
+                "copy-btn": "📋 ਟੈਕਸਟ ਕਾਪੀ ਕਰੋ",
+                "share-btn": "📤 ਸ਼ੇਅਰ ਕਰੋ",
+                "top-roasts-title": "🔥 ਪ੍ਰਸਿੱਧ ਰੋਸਟਸ",
+                "footer-about": "ਬਾਰੇ", 
+                "footer-privacy": "ਪਰਾਈਵੇਸੀ", 
+                "footer-contact": "ਸੰਪਰਕ",
+                "empty-name-alert": "ਪਹਿਲਾਂ ਇੱਕ ਨਾਮ ਦਰਜ ਕਰੋ, ਭੂਤ! 👻",
+                "copy-success": "ਟੈਕ스ਟ ਕਲਿੱਪਬੋਰਡ 'ਤੇ ਕਾਪੀ ਹੋ ਗਿਆ!",
+                "generating": "ਜਨਰੇਟ ਹੋ ਰਿਹਾ ਹੈ..."
             }
-        } else { 
-            // Fallback: copy to clipboard
-            copyToClipboard();
-        }
-    }
+        };
 
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        // Save theme preference
-        if (document.body.classList.contains('light-mode')) {
-            themeToggleBtn.textContent = '☀️';
-            localStorage.setItem('theme', 'light');
-        } else {
-            themeToggleBtn.textContent = '🌙';
-            localStorage.setItem('theme', 'dark');
+        // --- FUNCTIONS ---
+        function updateUIText(lang) {
+            document.getElementById('hero-title').textContent = uiText[lang]['hero-title'];
+            document.getElementById('hero-subtitle').textContent = uiText[lang]['hero-subtitle'];
+            document.getElementById('name-input').placeholder = uiText[lang]['name-input-placeholder'];
+            document.getElementById('generate-btn').textContent = uiText[lang]['generate-btn'];
+            document.getElementById('result-title').textContent = uiText[lang]['result-title'];
+            document.getElementById('roast-again-btn').textContent = uiText[lang]['roast-again-btn'];
+            document.getElementById('copy-btn').textContent = uiText[lang]['copy-btn'];
+            document.getElementById('share-btn').textContent = uiText[lang]['share-btn'];
+            document.getElementById('top-roasts-title').textContent = uiText[lang]['top-roasts-title'];
+            document.getElementById('footer-about').textContent = uiText[lang]['footer-about'];
+            document.getElementById('footer-privacy').textContent = uiText[lang]['footer-privacy'];
+            document.getElementById('footer-contact').textContent = uiText[lang]['footer-contact'];
         }
-        playSound('toggle');
-    }
 
-    function playSound(type) {
-        // Simple sound effects using the Web Audio API
-        try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
+        function showToast(message) {
+            toast.innerHTML = `<span>✅ ${message}</span>`;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function getRandomRoast() {
+            const roastList = roasts[currentLanguage];
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            switch(type) {
-                case 'generate':
-                    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                    break;
-                case 'copy':
-                case 'share':
-                    oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
-                    oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
-                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-                    break;
-                case 'toggle':
-                    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                    break;
+            // If all roasts have been used, reset
+            if (usedRoasts.length >= roastList.length) {
+                usedRoasts = [];
             }
             
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.5);
-        } catch (e) {
-            console.log("Audio context not supported");
+            // Filter out used roasts
+            const availableRoasts = roastList.filter((_, index) => !usedRoasts.includes(index));
+            
+            // Get a random index from available roasts
+            const randomIndex = Math.floor(Math.random() * availableRoasts.length);
+            const actualIndex = roastList.indexOf(availableRoasts[randomIndex]);
+            
+            // Mark this roast as used
+            usedRoasts.push(actualIndex);
+            
+            return availableRoasts[randomIndex];
         }
-    }
 
-    // --- EVENT LISTENERS ---
-    generateBtn.addEventListener('click', generateRoast);
-    roastAgainBtn.addEventListener('click', generateRoast);
-    copyBtn.addEventListener('click', copyToClipboard);
-    shareBtn.addEventListener('click', shareRoast);
-    themeToggleBtn.addEventListener('click', toggleTheme);
-
-    langSwitcherBtn.addEventListener('click', () => {
-        langMenu.classList.toggle('hidden');
-        playSound('toggle');
-    });
-
-    langMenu.addEventListener('click', (event) => {
-        if (event.target.tagName === 'BUTTON') {
-            const lang = event.target.dataset.lang;
-            currentLanguage = lang;
-            langSwitcherBtn.textContent = `🌐 ${lang.toUpperCase()} ▼`;
-            updateUIText(lang);
-            langMenu.classList.add('hidden');
-            playSound('toggle');
+        function generateRoast() {
+            const name = nameInput.value.trim(); 
+            if (name === "") {
+                roastOutput.textContent = uiText[currentLanguage]['empty-name-alert'];
+                resultSection.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            generateBtn.innerHTML = `<span class="loader"></span> ${uiText[currentLanguage]['generating']}`;
+            generateBtn.disabled = true;
+            roastOutput.style.opacity = '0.5';
+            
+            // Simulate loading with timeout
+            setTimeout(() => {
+                const randomRoast = getRandomRoast();
+                const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+                roastOutput.textContent = `${capitalizedName}, ${randomRoast}`;
+                roastOutput.style.opacity = '1';
+                resultSection.style.display = 'block';
+                
+                // Reset button
+                generateBtn.innerHTML = uiText[currentLanguage]['generate-btn'];
+                generateBtn.disabled = false;
+            }, 800);
         }
-    });
 
-    // Allow pressing Enter to generate roast
-    nameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            generateRoast();
+        function copyToClipboard() {
+            const roastText = roastOutput.textContent;
+            navigator.clipboard.writeText(roastText).then(() => {
+                showToast(uiText[currentLanguage]['copy-success']);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for browsers that don't support clipboard API
+                const textArea = document.createElement("textarea");
+                textArea.value = roastText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+                showToast(uiText[currentLanguage]['copy-success']);
+            });
         }
-    });
 
-    // Click on top roasts to use them
-    document.querySelectorAll('.top-roasts li').forEach(item => {
-        item.addEventListener('click', () => {
-            nameInput.value = '';
-            nameInput.focus();
-            roastOutput.textContent = item.textContent;
-            resultSection.style.display = 'block';
-            playSound('generate');
+        async function shareRoast() {
+            const roastText = roastOutput.textContent;
+            const shareData = { 
+                title: 'I got Roasted! 🔥', 
+                text: `"${roastText}"\n\nRoast your friends too! 😂👇`, 
+                url: window.location.href 
+            };
+            
+            if (navigator.share) {
+                try { 
+                    await navigator.share(shareData); 
+                } catch (err) { 
+                    console.log('Error sharing:', err); 
+                }
+            } else { 
+                // Fallback: copy to clipboard
+                copyToClipboard();
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            // Save theme preference
+            if (document.body.classList.contains('light-mode')) {
+                themeToggleBtn.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggleBtn.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        generateBtn.addEventListener('click', generateRoast);
+        roastAgainBtn.addEventListener('click', generateRoast);
+        copyBtn.addEventListener('click', copyToClipboard);
+        shareBtn.addEventListener('click', shareRoast);
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        langSwitcherBtn.addEventListener('click', () => {
+            langMenu.classList.toggle('hidden');
         });
-    });
 
-    // --- ON PAGE LOAD ---
-    // Check for saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggleBtn.textContent = '☀️';
-    }
-    
-    // Initialize UI text
-    updateUIText(currentLanguage);
-</script>
+        langMenu.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                const lang = event.target.dataset.lang;
+                currentLanguage = lang;
+                langSwitcherBtn.textContent = `🌐 ${lang.toUpperCase()}`;
+                updateUIText(lang);
+                langMenu.classList.add('hidden');
+                
+                // Reset used roasts when language changes
+                usedRoasts = [];
+            }
+        });
+
+        // Allow pressing Enter to generate roast
+        nameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateRoast();
+            }
+        });
+
+        // Click on top roasts to use them
+        document.querySelectorAll('.top-roasts li').forEach(item => {
+            item.addEventListener('click', () => {
+                nameInput.value = '';
+                nameInput.focus();
+                roastOutput.textContent = item.textContent;
+                resultSection.style.display = 'block';
+            });
+        });
+
+        // Close language menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('#lang-menu') && !event.target.closest('#lang-switcher-btn')) {
+                langMenu.classList.add('hidden');
+            }
+        });
+
+        // --- ON PAGE LOAD ---
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggleBtn.textContent = '☀️';
+        }
+        
+        // Initialize UI text
+        updateUIText(currentLanguage);
+    </script>
 
 </body>
-</html> 
+</html>
